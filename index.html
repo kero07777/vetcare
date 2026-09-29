@@ -1,0 +1,1463 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2a78d6"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="VetCare">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png">
+<title>VetCare — سجل المبيعات الذكي</title><style>:root{
+  color-scheme:light;
+  --bg:#f4f4f1;--surface:#fcfcfb;--surface2:#f5f5f2;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;
+  --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);--shadow:0 1px 2px rgba(11,11,11,.04),0 4px 14px rgba(11,11,11,.04);
+  --c1:#2a78d6;--c2:#eb6834;--c3:#1baf7a;--c4:#eda100;--c5:#e87ba4;--c6:#008300;--c7:#4a3aa7;--c8:#e34948;
+  --good:#006300;--bad:#d03b3b;--warn:#b57500;--brand:#2a78d6;--brandInk:#fff;--hover:rgba(11,11,11,.045);--overlay:rgba(11,11,11,.42);
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){
+  color-scheme:dark;--bg:#0d0d0d;--surface:#1a1a19;--surface2:#222220;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
+  --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--shadow:0 1px 2px rgba(0,0,0,.4);
+  --c1:#3987e5;--c2:#d95926;--c3:#199e70;--c4:#c98500;--c5:#d55181;--c6:#008300;--c7:#9085e9;--c8:#e66767;
+  --good:#0ca30c;--bad:#e66767;--warn:#fab219;--hover:rgba(255,255,255,.06);--overlay:rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#0d0d0d;--surface:#1a1a19;--surface2:#222220;--ink:#fff;--ink2:#c3c2b7;--muted:#898781;
+  --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);--shadow:0 1px 2px rgba(0,0,0,.4);
+  --c1:#3987e5;--c2:#d95926;--c3:#199e70;--c4:#c98500;--c5:#d55181;--c6:#008300;--c7:#9085e9;--c8:#e66767;
+  --good:#0ca30c;--bad:#e66767;--warn:#fab219;--hover:rgba(255,255,255,.06);--overlay:rgba(0,0,0,.6)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+bdi.n,.n{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums}
+svg{display:block;max-width:100%}
+svg text{font-family:inherit;direction:ltr}
+.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none;display:inline-block;vertical-align:middle}
+.app{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:100%}
+.side{position:sticky;top:0;height:100vh;background:var(--surface);border-inline-end:1px solid var(--border);display:flex;flex-direction:column;padding:18px 14px;gap:6px}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 8px 16px}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--c1),var(--c3));display:grid;place-items:center;color:#fff;flex:none}
+.logo svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round}
+.brand b{display:block;font-size:17px;letter-spacing:.2px}
+.brand small{color:var(--muted);font-size:11.5px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{display:flex;align-items:center;gap:11px;border:0;background:none;padding:10px 12px;border-radius:10px;color:var(--ink2);font-weight:600;text-align:start}
+.nav button:hover{background:var(--hover);color:var(--ink)}
+.nav button.on{background:color-mix(in srgb,var(--brand) 13%,transparent);color:var(--brand)}
+.side .sp{flex:1}
+.bk{font-size:12px;border:1px dashed var(--axis);border-radius:10px;padding:9px 11px;color:var(--ink2);display:flex;gap:8px;align-items:flex-start}
+.bk.warn{border-color:var(--warn);color:var(--warn);border-style:solid;background:color-mix(in srgb,var(--warn) 8%,transparent)}
+.main{min-width:0;display:flex;flex-direction:column}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:12px 26px;flex-wrap:wrap}
+.top h1{font-size:19px;font-weight:800;margin-inline-end:auto}
+.page{padding:22px 26px 60px;max-width:1500px;width:100%;margin-inline:auto}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:600;color:var(--ink);box-shadow:var(--shadow);white-space:nowrap}
+.btn:hover{background:var(--surface2)}
+.btn.pri{background:var(--brand);color:var(--brandInk);border-color:transparent}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.dng{color:var(--bad)}
+.btn.sm{padding:5px 10px;font-size:12.5px;border-radius:8px}
+.btn.ghost{background:none;box-shadow:none;border-color:transparent}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.iconbtn{width:36px;height:36px;padding:0;justify-content:center}
+.seg{display:inline-flex;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:none;padding:5px 12px;border-radius:7px;font-weight:600;color:var(--ink2);font-size:13px}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.per{display:flex;align-items:center;gap:4px}
+select.sel,input.inp,textarea.inp{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:8px 11px;outline:none;min-width:0}
+select.sel:focus,input.inp:focus,textarea.inp:focus{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 18%,transparent)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow);min-width:0}
+.card h3{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.card .sub{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+.card .hd{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.kpi .lbl{color:var(--ink2);font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
+.dot{width:9px;height:9px;border-radius:3px;display:inline-block;flex:none}
+.kpi .val{font-size:29px;font-weight:800;margin:6px 0 2px;letter-spacing:-.5px}
+.kpi .val small{font-size:13px;color:var(--muted);font-weight:600;margin-inline-start:4px}
+.kpi .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;color:var(--muted);font-size:12.5px}
+.delta{display:inline-flex;align-items:center;gap:3px;font-weight:700;font-size:12px;padding:2px 7px;border-radius:99px}
+.delta.up{color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent)}
+.delta.dn{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.delta.nt{color:var(--muted);background:var(--hover)}
+.pos{color:var(--good)}.neg{color:var(--bad)}
+.muted{color:var(--muted)}.ink2{color:var(--ink2)}
+.chart{width:100%;position:relative}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin:4px 0 8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.ins{display:flex;flex-direction:column;gap:9px}
+.insi{display:flex;gap:11px;padding:11px 12px;border-radius:12px;background:var(--surface2);border:1px solid var(--border)}
+.insi .b{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none}
+.insi.good .b{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.insi.warn .b{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.insi.bad .b{background:color-mix(in srgb,var(--bad) 15%,transparent);color:var(--bad)}
+.insi.info .b{background:color-mix(in srgb,var(--c1) 15%,transparent);color:var(--c1)}
+.insi b{display:block;font-size:13.5px}
+.insi p{color:var(--ink2);font-size:13px}
+.hb{display:flex;flex-direction:column;gap:7px}
+.hbr{display:grid;grid-template-columns:110px 1fr 92px;align-items:center;gap:10px;font-size:13px;padding:3px 6px;border-radius:8px;cursor:pointer}
+.hbr:hover{background:var(--hover)}
+.hbr .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.hbr .tr{height:10px;background:var(--surface2);border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.hbr .fl{height:100%;border-radius:0 5px 5px 0;min-width:3px}
+.hbr .vl{text-align:end;font-weight:700}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal .wd{font-size:11.5px;color:var(--muted);text-align:center;font-weight:600}
+.cal .d{aspect-ratio:1.25/1;border-radius:10px;border:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between;padding:5px 7px;font-size:12px;position:relative;cursor:pointer;min-height:44px;background:var(--surface2)}
+.cal .d:hover{outline:2px solid var(--brand);outline-offset:1px}
+.cal .d.emp{border-style:dashed;background:none;color:var(--muted)}
+.cal .d.pad{visibility:hidden}
+.cal .d b{font-size:12px}
+.cal .d small{font-size:10.5px;opacity:.9}
+.cal .d .neg-mark{position:absolute;top:6px;inset-inline-end:7px;width:8px;height:8px;border-radius:50%;background:var(--c2);box-shadow:0 0 0 2px var(--surface)}
+.cal .d.hi{color:#fff}
+.gr{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:10px}
+.gr i{display:block;width:120px;height:8px;border-radius:5px;background:linear-gradient(to left,var(--c1),color-mix(in srgb,var(--c1) 8%,var(--surface)))}
+.tw{overflow:auto;border:1px solid var(--border);border-radius:14px;background:var(--surface);max-height:calc(100vh - 210px)}
+table.t{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
+table.t th,table.t td{padding:9px 12px;border-bottom:1px solid var(--grid);white-space:nowrap;text-align:end}
+table.t th{position:sticky;top:0;background:var(--surface2);z-index:2;font-weight:700;color:var(--ink2);font-size:12.5px}
+table.t td:first-child,table.t th:first-child{text-align:start;position:sticky;inset-inline-start:0;background:var(--surface);z-index:1}
+table.t th:first-child{background:var(--surface2);z-index:3}
+table.t tbody tr:hover td{background:var(--hover)}
+table.t tbody tr:hover td:first-child{background:color-mix(in srgb,var(--surface) 92%,var(--ink))}
+table.t tfoot tr:first-child td{bottom:37px}
+table.t tfoot td{position:sticky;bottom:0;background:var(--surface2);font-weight:800;z-index:2}
+table.t tr.clk{cursor:pointer}
+table.t tr.off td{color:var(--muted)}
+table.t td.cell{cursor:cell;min-width:74px}
+table.t td.cell input{width:70px;border:0;outline:2px solid var(--brand);border-radius:6px;padding:2px 5px;text-align:end;direction:ltr;background:var(--surface)}
+.mini{display:inline-block;width:64px;height:7px;background:var(--surface2);border-radius:5px;overflow:hidden;vertical-align:middle;border:1px solid var(--border)}
+.mini i{display:block;height:100%}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:700;background:var(--hover);color:var(--ink2)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.pill.bad{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.pill.good{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.sc{cursor:pointer;transition:transform .12s,border-color .12s}
+.sc:hover{transform:translateY(-2px);border-color:var(--brand)}
+.sc .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sc .tot{font-size:21px;font-weight:800;margin:4px 0}
+.sc .meta{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:12px;color:var(--ink2);margin-top:8px}
+.modal-bg{position:fixed;inset:0;background:var(--overlay);z-index:60;display:flex;justify-content:flex-start;animation:fd .15s}
+.modal{background:var(--surface);width:min(560px,100%);height:100%;display:flex;flex-direction:column;box-shadow:0 0 40px rgba(0,0,0,.25);animation:sl .2s ease}
+.modal.wide{width:min(700px,100%)}
+@keyframes fd{from{opacity:0}}
+@keyframes sl{from{transform:translateX(-40px);opacity:0}}
+.mh{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.mh h2{font-size:17px;margin-inline-end:auto}
+.mb{padding:18px 20px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:16px}
+.mf{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--surface2)}
+.fld label{display:block;font-size:12.5px;color:var(--ink2);font-weight:600;margin-bottom:5px}
+.fld .inp{width:100%}
+.big{font-size:26px!important;font-weight:800;padding:10px 14px!important;direction:ltr;text-align:end}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid var(--border);background:var(--surface);border-radius:99px;padding:5px 12px;font-size:13px;font-weight:600;color:var(--ink2)}
+.chip:hover{border-color:var(--brand);color:var(--ink)}
+.chip.on{background:color-mix(in srgb,var(--c2) 16%,transparent);border-color:var(--c2);color:var(--ink)}
+.chip.on::before{content:"✓ "}
+.erow{display:grid;grid-template-columns:1fr 130px 30px;gap:8px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--grid)}
+.erow .hint{grid-column:1/-1;font-size:12px;color:var(--muted);margin-top:-4px}
+.erow .inp{direction:ltr;text-align:end;font-weight:700}
+.sumbar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sumbar div{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:9px 12px}
+.sumbar small{color:var(--muted);display:block;font-size:12px}
+.sumbar b{font-size:18px}
+.note{font-size:12.5px;border-radius:10px;padding:8px 11px;background:var(--surface2);color:var(--ink2);border:1px solid var(--border)}
+.note.warn{background:color-mix(in srgb,var(--warn) 10%,transparent);border-color:color-mix(in srgb,var(--warn) 40%,transparent);color:var(--ink)}
+.tip{position:fixed;z-index:100;pointer-events:none;background:var(--ink);color:var(--surface);padding:8px 11px;border-radius:9px;font-size:12.5px;max-width:280px;box-shadow:0 6px 20px rgba(0,0,0,.25);opacity:0;transition:opacity .08s;line-height:1.6}
+.tip.on{opacity:1}
+.tip b{display:block;margin-bottom:2px}
+.tip i{font-style:normal;display:inline-block;width:8px;height:8px;border-radius:2px;margin-inline-end:6px}
+.toasts{position:fixed;bottom:22px;inset-inline-start:50%;transform:translateX(50%);z-index:120;display:flex;flex-direction:column;gap:8px;align-items:center}
+[dir=rtl] .toasts{transform:translateX(50%)}
+.toast{background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.3);display:flex;gap:14px;align-items:center;font-weight:600;animation:fd .2s}
+.toast button{background:none;border:0;color:var(--c1);font-weight:800;filter:brightness(1.5)}
+.pal{position:fixed;inset:0;z-index:110;background:var(--overlay);display:flex;justify-content:center;padding-top:12vh}
+.pal>div{width:min(560px,94%);background:var(--surface);border-radius:16px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.35);align-self:flex-start;overflow:hidden}
+.pal input{width:100%;border:0;border-bottom:1px solid var(--border);padding:16px 18px;font-size:16px;outline:none;background:none}
+.pal ul{list-style:none;padding:6px;max-height:50vh;overflow:auto}
+.pal li{padding:9px 12px;border-radius:9px;display:flex;gap:10px;align-items:center;cursor:pointer}
+.pal li.on{background:color-mix(in srgb,var(--brand) 14%,transparent)}
+.pal li small{margin-inline-start:auto;color:var(--muted)}
+.empty{text-align:center;padding:38px 16px;color:var(--ink2)}
+.empty b{display:block;font-size:16px;color:var(--ink);margin-bottom:6px}
+.sl{width:100%;accent-color:var(--brand)}
+.sim{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.sim .r{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:2px}
+.ring{position:relative;width:150px;height:150px;flex:none}
+.ring .ct{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1.2}
+.ring .ct b{font-size:26px}
+.flex{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.rep{max-width:900px;margin:auto}
+.rep h2{font-size:22px}
+hr.h{border:0;border-top:1px solid var(--border);margin:14px 0}
+.drop{border:2px dashed var(--axis);border-radius:14px;padding:26px;text-align:center;color:var(--ink2);cursor:pointer}
+.drop:hover,.drop.ov{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 6%,transparent)}
+.hov .hl{opacity:0}.hov:hover .hl{opacity:1}
+.hov{cursor:crosshair}
+.banner{display:flex;gap:10px;align-items:center;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--c1) 9%,transparent);border:1px solid color-mix(in srgb,var(--c1) 30%,transparent);margin-bottom:16px;flex-wrap:wrap}
+.hide-sm{}
+@media (max-width:1100px){.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.c3{grid-column:span 6}}
+@media (max-width:820px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .kpi .val{font-size:21px}.top h1{font-size:16px}.card{padding:14px}.top .per{order:5;width:100%}.top .per select{flex:1}
+  .side{position:fixed;inset:auto 0 0 0;height:auto;flex-direction:row;padding:6px;z-index:40;border-inline-end:0;border-top:1px solid var(--border);gap:0}
+  .brand,.side .sp,.bk{display:none}
+  .nav{flex-direction:row;width:100%;justify-content:space-around}
+  .nav button{flex-direction:column;gap:2px;padding:6px 4px;font-size:10.5px;flex:1;align-items:center;text-align:center}
+  .top{padding:10px 14px}.page{padding:14px 14px 96px}
+  .hide-sm{display:none!important}
+  .sim{grid-template-columns:1fr}
+  .hbr{grid-template-columns:84px 1fr 80px}
+}
+@media print{
+  .side,.top,.noprint,.toasts,.modal-bg{display:none!important}
+  .app{display:block}.page{padding:0;max-width:none}
+  body{background:#fff;--surface:#fff;--surface2:#f5f5f2;--ink:#000;color:#000}
+  .card{box-shadow:none;break-inside:avoid}
+  .tw{max-height:none;overflow:visible}
+}
+@media (max-width:820px){.cal{gap:3px}.cal .d{padding:3px 4px;min-height:40px;border-radius:7px}.cal .d small{font-size:9px}.cal .wd{font-size:9.5px}.cal .d .neg-mark{width:6px;height:6px;top:4px}}
+
+html{-webkit-text-size-adjust:100%}
+*{-webkit-tap-highlight-color:transparent}
+button,[data-act]{touch-action:manipulation}
+@media (max-width:820px){
+  input,select,textarea{font-size:16px!important}
+  .side{padding-bottom:max(6px,env(safe-area-inset-bottom));padding-inline:max(6px,env(safe-area-inset-left))}
+  .page{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+  .modal{width:100%!important}
+  .mf{padding-bottom:max(14px,env(safe-area-inset-bottom))}
+  .toasts{bottom:calc(84px + env(safe-area-inset-bottom))}
+  .btn{min-height:40px}.btn.sm{min-height:34px}
+  .erow{grid-template-columns:1fr 110px 34px}
+  .sumbar b{font-size:16px}
+  .tw{max-height:none}
+}
+@media (display-mode:standalone){body{overscroll-behavior-y:none}}
+
+@media (min-width:821px){.bkb{display:none!important}}
+@media (max-width:820px){.mf .muted{display:none}}
+</style></head><body>
+<div id="app"></div><div class="toasts" id="toasts"></div>
+<script>const SEED={"cats": [{"id": "c1", "name": "فارما كير", "type": "sup", "on": 1}, {"id": "c2", "name": "فارما فيت", "type": "sup", "on": 1}, {"id": "c3", "name": "كارما كير", "type": "sup", "on": 1}, {"id": "c4", "name": "د/ناصر", "type": "sup", "on": 1}, {"id": "c5", "name": "الفتح", "type": "sup", "on": 1}, {"id": "c6", "name": "سفير", "type": "sup", "on": 1}, {"id": "c7", "name": "ابن سينا", "type": "sup", "on": 1}, {"id": "c8", "name": "الأردنية", "type": "sup", "on": 1}, {"id": "c9", "name": "سيرافيت", "type": "sup", "on": 1}, {"id": "c10", "name": "منتصر", "type": "sup", "on": 1}, {"id": "c11", "name": "سيجما", "type": "sup", "on": 1}, {"id": "c12", "name": "القاضي", "type": "sup", "on": 1}, {"id": "c13", "name": "الفا فيت", "type": "sup", "on": 1}, {"id": "c14", "name": "فيت لارج", "type": "sup", "on": 1}, {"id": "c15", "name": "تحصين", "type": "sup", "on": 1}, {"id": "c16", "name": "أخرى (موردين)", "type": "sup", "on": 1}, {"id": "c17", "name": "كهرباء", "type": "op", "on": 1}, {"id": "c18", "name": "مياه", "type": "op", "on": 1}, {"id": "c19", "name": "تأمينات", "type": "op", "on": 1}, {"id": "c20", "name": "مرتبات", "type": "op", "on": 1}, {"id": "c21", "name": "أكياس", "type": "op", "on": 1}, {"id": "c22", "name": "فكة", "type": "op", "on": 1}, {"id": "c23", "name": "أخرى (تشغيل)", "type": "op", "on": 1}, {"id": "c24", "name": "تبرع", "type": "op", "on": 1}], "days": {}};</script>
+<script>'use strict';
+/* ====================== أدوات عامة ====================== */
+const $=(s,el=document)=>el.querySelector(s), $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const AR_M=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const AR_D=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const WEEK_ORDER=[6,0,1,2,3,4,5]; // السبت أول الأسبوع
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const key=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parseKey=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d)};
+const dim=(y,m)=>new Date(y,m,0).getDate();
+const addDays=(k,n)=>{const d=parseKey(k);d.setDate(d.getDate()+n);return key(d)};
+const diffDays=(a,b)=>Math.round((parseKey(b)-parseKey(a))/864e5);
+const ymOf=k=>k.slice(0,7);
+const todayKey=()=>key(new Date());
+const fmtN=n=>{n=Math.round(n||0);return (n<0?'−':'')+Math.abs(n).toLocaleString('en-US')};
+const N=n=>`<bdi class="n">${fmtN(n)}</bdi>`;
+const cur=()=>DB.settings.cur||'ج.م';
+const M=n=>`<bdi class="n">${fmtN(n)}</bdi> <span class="muted" style="font-size:.78em">${esc(cur())}</span>`;
+const P=(v,d=1)=>`<bdi class="n">${(v*100).toFixed(d).replace(/\.0+$/,'')}%</bdi>`;
+const pctTxt=(v,d=1)=>'\u2066'+(v*100).toFixed(d).replace(/\.0+$/,'')+'%\u2069';
+const dShort=k=>{const d=parseKey(k);return d.getDate()+' '+AR_M[d.getMonth()]};
+const dLong=k=>{const d=parseKey(k);return AR_D[d.getDay()]+' '+d.getDate()+' '+AR_M[d.getMonth()]+' '+d.getFullYear()};
+const mLabel=(y,m)=>AR_M[m-1]+' '+y;
+const norm=s=>String(s||'').toLowerCase().replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/\s+/g,' ').trim();
+const parseNum=s=>{s=String(s??'').replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/[,،٬\s]/g,'').replace('٫','.');const v=parseFloat(s);return isFinite(v)?v:0};
+const sum=a=>a.reduce((x,y)=>x+y,0);
+const mean=a=>a.length?sum(a)/a.length:0;
+const median=a=>{if(!a.length)return 0;const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2};
+const std=a=>{if(a.length<2)return 0;const m=mean(a);return Math.sqrt(sum(a.map(x=>(x-m)**2))/(a.length-1))};
+const ICONS={
+home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
+truck:'<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+set:'<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
+plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+search:'<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
+chl:'<polyline points="15 18 9 12 15 6"/>',chr:'<polyline points="9 18 15 12 9 6"/>',
+dl:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
+ul:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
+trash:'<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>',
+x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+sun:'<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/>',
+moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
+print:'<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+warn:'<path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17.01"/>',
+up:'<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+down:'<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/>',
+check:'<polyline points="20 6 9 17 4 12"/>',
+edit:'<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>',
+info:'<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="8.01"/>',
+target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+save:'<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>',
+clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+undo:'<polyline points="1 4 1 10 7 10"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/>',
+cmd:'<path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>',
+bulb:'<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/>'};
+const ic=(n,s)=>`<svg class="ic" viewBox="0 0 24 24"${s?` style="width:${s}px;height:${s}px"`:''}>${ICONS[n]||''}</svg>`;
+
+/* ====================== البيانات ====================== */
+const LS='vetcare_sales_v1';
+let DB,HIST=[],STORE_OK=true;
+const DEF_SET={shop:'VetCare',cur:'ج.م',target:0,theme:'auto',lastBackup:0,overdue:1.5};
+function commit(fn,msg){
+  HIST.push(JSON.stringify(DB));if(HIST.length>40)HIST.shift();
+  fn();persist();render();if(msg)toast(msg,true);
+}
+function undo(){
+  if(!HIST.length)return toast('مفيش حاجة للتراجع عنها');
+  DB=JSON.parse(HIST.pop());persist();render();toast('تم التراجع ✔');
+}
+let CM={},RECS=[],RM={};
+function buildIndex(){
+  CM={};DB.cats.forEach(c=>CM[c.id]=c);
+  RECS=Object.keys(DB.days).sort().map(rec);RM={};RECS.forEach(r=>RM[r.k]=r);
+  // لون ثابت لكل شركة حسب ترتيب إجمالي المدفوعات على مدى كل الفترة
+  const tot={};RECS.forEach(r=>{for(const c in r.e)tot[c]=(tot[c]||0)+r.e[c]});
+  RANK=Object.keys(tot).sort((a,b)=>tot[b]-tot[a]);
+}
+let RANK=[];
+const SERIES=['--c1','--c2','--c3','--c4','--c5','--c6','--c7'];
+const catColor=id=>{const i=RANK.indexOf(id);return i>=0&&i<7?`var(${SERIES[i]})`:'var(--muted)'};
+function rec(k){
+  const d=DB.days[k],dt=parseKey(k);let sup=0,op=0;
+  for(const c in d.e){const v=d.e[c]||0;(CM[c]&&CM[c].type==='op')?op+=v:sup+=v}
+  const inc=d.i||0;
+  return {k,dt,dow:dt.getDay(),inc,e:d.e,sup,op,exp:sup+op,net:inc-sup-op,note:d.n||''};
+}
+function agg(rs){
+  const a={n:rs.length,inc:0,exp:0,sup:0,op:0,net:0,byCat:{}};
+  for(const r of rs){a.inc+=r.inc;a.exp+=r.exp;a.sup+=r.sup;a.op+=r.op;
+    for(const c in r.e){const v=r.e[c];if(!v)continue;const b=a.byCat[c]||(a.byCat[c]={t:0,n:0,last:null,list:[]});b.t+=v;b.n++;b.last=r.k;b.list.push([r.k,v])}}
+  a.net=a.inc-a.exp;a.margin=a.inc?a.net/a.inc:0;a.avgInc=a.n?a.inc/a.n:0;a.avgExp=a.n?a.exp/a.n:0;return a;
+}
+/* الفترة المحددة */
+let PER={mode:'month',y:2026,m:1};
+function periodInfo(p=PER){
+  let from,to,label,prev=null;
+  if(p.mode==='month'){from=`${p.y}-${pad(p.m)}-01`;to=`${p.y}-${pad(p.m)}-${pad(dim(p.y,p.m))}`;label=mLabel(p.y,p.m);
+    prev={mode:'month',y:p.m===1?p.y-1:p.y,m:p.m===1?12:p.m-1}}
+  else if(p.mode==='year'){from=`${p.y}-01-01`;to=`${p.y}-12-31`;label='سنة '+p.y;prev={mode:'year',y:p.y-1}}
+  else{from='0000-00-00';to='9999-99-99';label='كل الفترة'}
+  const recs=RECS.filter(r=>r.k>=from&&r.k<=to);
+  return {p,from,to,label,prev,recs,a:agg(recs)};
+}
+function initPeriod(){
+  const last=RECS.length?RECS[RECS.length-1].k:todayKey();const d=parseKey(last);
+  PER={mode:'month',y:d.getFullYear(),m:d.getMonth()+1};
+}
+function shiftPeriod(dir){
+  if(PER.mode==='month'){let m=PER.m+dir,y=PER.y;if(m<1){m=12;y--}if(m>12){m=1;y++}PER={mode:'month',y,m}}
+  else if(PER.mode==='year')PER={mode:'year',y:PER.y+dir};
+}
+function monthsList(){ // كل الشهور من أول بيانات لحد الشهر التالي لآخر بيانات (+ الشهر الحالي)
+  const set=new Set(RECS.map(r=>ymOf(r.k)));
+  const out=[];if(!RECS.length){const t=new Date();return [[t.getFullYear(),t.getMonth()+1]]}
+  let [y,m]=RECS[0].k.split('-').map(Number);
+  const last=RECS[RECS.length-1].k.slice(0,7).split('-').map(Number);
+  let [ey,em]=last;em++;if(em>12){em=1;ey++}
+  while(y<ey||(y===ey&&m<=em)){out.push([y,m]);m++;if(m>12){m=1;y++}}
+  return out;
+}
+
+/* ====================== التحليل والتوقع ====================== */
+function dowStats(rs){
+  const o={};for(let d=0;d<7;d++)o[d]={n:0,inc:0,exp:0};
+  rs.forEach(r=>{const x=o[r.dow];x.n++;x.inc+=r.inc;x.exp+=r.exp});
+  for(let d=0;d<7;d++){o[d].avgInc=o[d].n?o[d].inc/o[d].n:0;o[d].avgExp=o[d].n?o[d].exp/o[d].n:0}
+  return o;
+}
+function confidence(rs){
+  const n=rs.length,months=new Set(rs.map(r=>ymOf(r.k))).size;
+  if(n<14)return {lvl:0,txt:'ضعيفة جدًا',why:`لسه ${n} يوم بس مسجل`};
+  if(months<2)return {lvl:1,txt:'أولية',why:`بيانات شهر واحد فقط (${n} يوم) — بتحسن مع كل شهر جديد`};
+  if(months<4)return {lvl:2,txt:'متوسطة',why:`${months} شهور من البيانات`};
+  if(months<12)return {lvl:3,txt:'جيدة',why:`${months} شهور من البيانات`};
+  return {lvl:4,txt:'عالية',why:`${months} شهر من البيانات — كفاية لمراعاة الموسمية`};
+}
+/* توقع أيام من startKey إلى endKey اعتمادًا على آخر ≤ 60 يوم مسجل */
+const addYear=(k,n)=>{const d=parseKey(k);d.setFullYear(d.getFullYear()+n);return key(d)};
+function forecastRange(startKey,endKey){
+  const histAll=RECS.filter(r=>r.k<startKey),hist=histAll.slice(-60);
+  if(hist.length<7)return null;
+  const level0=mean(hist.map(r=>r.inc));const ds=dowStats(hist);const K=2;
+  const f={};for(let d=0;d<7;d++){const x=ds[d];f[d]=level0?((x.n*x.avgInc+K*level0)/(x.n+K))/level0:1}
+  const ratio=sum(hist.map(r=>r.exp))/Math.max(1,sum(hist.map(r=>r.inc)));
+  const res=hist.map(r=>r.inc-level0*f[r.dow]);const sI=std(res);
+  const sE=std(hist.map(r=>r.exp));
+  let days=0;for(let k=startKey;k<=endKey;k=addDays(k,1))days++;
+  // موسمية: نسبة أداء نفس الفترة المستهدفة إلى فترة المقارنة في السنة اللي فاتت
+  let seas=1,seasUsed=false;
+  if(hist.length>=30){
+    const inYear=(a,b)=>RECS.filter(r=>r.k>=addYear(a,-1)&&r.k<=addYear(b,-1));
+    const win=inYear(hist[0].k,hist[hist.length-1].k),tgt=inYear(startKey,endKey);
+    if(win.length>=20&&tgt.length>=Math.min(15,Math.ceil(days*.5))){
+      const a0=mean(win.map(r=>r.inc)),a1=mean(tgt.map(r=>r.inc));
+      if(a0>0){seas=Math.min(1.6,Math.max(.6,a1/a0));seasUsed=true}
+    }
+  }
+  const level=level0*seas;let inc=0;
+  for(let k=startKey;k<=endKey;k=addDays(k,1))inc+=level*f[parseKey(k).getDay()];
+  const exp=inc*ratio,net=inc-exp;
+  const bi=1.28*sI*Math.sqrt(days),be=1.28*sE*Math.sqrt(days);
+  return {days,inc,exp,net,incLo:inc-bi,incHi:inc+bi,netLo:net-Math.sqrt(bi*bi+be*be),netHi:net+Math.sqrt(bi*bi+be*be),ratio,level,seas,seasUsed,conf:confidence(histAll)};
+}
+/* إيقاع الدفع لكل شركة → الدفعة المتوقعة */
+function payRhythm(catId){
+  const list=[];RECS.forEach(r=>{if(r.e[catId])list.push([r.k,r.e[catId]])});
+  if(list.length<2)return {n:list.length,list};
+  const gaps=[];for(let i=1;i<list.length;i++)gaps.push(diffDays(list[i-1][0],list[i][0]));
+  const gap=median(gaps),last=list[list.length-1];
+  return {n:list.length,list,gap,typ:median(list.map(x=>x[1])),last:last[0],next:addDays(last[0],Math.max(1,Math.round(gap)))};
+}
+const refDate=()=>RECS.length?RECS[RECS.length-1].k:todayKey();
+
+/* ====================== الملاحظات الذكية ====================== */
+function buildInsights(pi){
+  const rs=pi.recs,a=pi.a,out=[];const add=(t,ico,title,text,pr=5)=>out.push({t,ico,title,text,pr});
+  if(!rs.length)return out;
+  const byInc=[...rs].sort((x,y)=>y.inc-x.inc),byNet=[...rs].sort((x,y)=>y.net-x.net);
+  // 1 الصافي
+  const mg=a.margin;
+  add(mg>=.25?'good':mg>=.1?'info':'warn',mg>=.25?'up':'info','صافي الفترة',
+    `دخل ${M(a.inc)} ودفعت ${M(a.exp)}، يعني الفاضل ${M(a.net)} (${P(mg)} من الإيراد). ${mg>=.25?'نسبة كويسة.':mg>=.1?'نسبة معقولة.':'نسبة ضعيفة — راجع المدفوعات.'} <span class="muted">(ده صافي نقدي: الإيراد − اللي اتدفع، مش ربح محاسبي، لأن دفعات الشركات ممكن تكون عن بضاعة لسه في الرف.)</span>`,9);
+  // 2 أفضل وأضعف يوم
+  const best=byInc[0],worst=byInc.filter(r=>r.inc>0).slice(-1)[0];
+  add('info','up',`أعلى يوم بيع: ${dShort(best.k)}`,`${AR_D[best.dow]} ${dShort(best.k)} بإيراد ${M(best.inc)}، أعلى من متوسط اليوم (${M(a.avgInc)}) بـ ${P(best.inc/a.avgInc-1,0)}.`+(worst&&worst.k!==best.k?` وأضعف يوم فيه بيع كان ${dShort(worst.k)} بـ ${M(worst.inc)}.`:''),6);
+  // 3 أيام الإغلاق
+  const zero=rs.filter(r=>r.inc===0);
+  if(zero.length)add('info','clock',`${zero.length} ${zero.length>2?'أيام':'يوم'} بدون مبيعات`,`${zero.map(r=>dShort(r.k)+' ('+AR_D[r.dow]+')').join('، ')}. لو دي أجازات مفيش مشكلة، وإلا فالمعدل ده بيقلل متوسط اليوم.`,3);
+  // 4 يوم الأسبوع
+  const ds=dowStats(rs.filter(r=>r.inc>0)),ok=Object.keys(ds).filter(d=>ds[d].n>=2);
+  if(ok.length>=5){
+    const s=[...ok].sort((x,y)=>ds[y].avgInc-ds[x].avgInc);const hi=s[0],lo=s[s.length-1];
+    add('info','cal',`أقوى يوم في الأسبوع: ${AR_D[hi]}`,`متوسط بيع ${AR_D[hi]} ${M(ds[hi].avgInc)} مقابل ${M(ds[lo].avgInc)} يوم ${AR_D[lo]} (فرق ${P(ds[hi].avgInc/Math.max(1,ds[lo].avgInc)-1,0)}). ${a.n<40?'<span class="muted">العينة صغيرة — خد الكلام كمؤشر مش قاعدة.</span>':''}`,5);
+  }
+  // 5 تركيز الموردين
+  const sups=Object.entries(a.byCat).filter(([c])=>CM[c]&&CM[c].type==='sup').sort((x,y)=>y[1].t-x[1].t);
+  if(sups.length>=3&&a.sup>0){
+    const t3=sum(sups.slice(0,3).map(x=>x[1].t))/a.sup;
+    add(t3>.6?'warn':'info','truck',`أكبر 3 شركات = ${pctTxt(t3,0)} من المشتريات`,
+      `${sups.slice(0,3).map(([c,b])=>esc(CM[c].name)+' ('+pctTxt(b.t/a.sup,0)+')').join('، ')}. ${t3>.6?'اعتمادك عليهم كبير — لو حد فيهم اتأخر أو غلّى، الأثر هيبان فورًا. فكّر في بديل أو تفاوض على شروط دفع.':'توزيع صحي نسبيًا.'}`,t3>.6?8:4);
+  }
+  // 6 أيام العجز
+  const neg=rs.filter(r=>r.net<0);
+  if(neg.length){const w=[...neg].sort((x,y)=>x.net-y.net)[0];
+    add(neg.length/rs.length>.4?'warn':'info','warn',`${neg.length} يوم المدفوعات فيهم أكبر من الإيراد`,`${pctTxt(neg.length/rs.length,0)} من الأيام. أسوأ يوم ${dShort(w.k)} بعجز ${M(-w.net)}${(()=>{const top=Object.entries(w.e).sort((x,y)=>y[1]-x[1])[0];return top?` (أكبر دفعة: ${esc(CM[top[0]]?.name||'')} ${M(top[1])})`:''})()}. الأيام دي غالبًا يوم سداد شركة كبيرة — الأهم إن الشهر ككل موجب. لو عايز تخفف الضغط وزّع الدفعات على أيام أقوى في البيع.`,neg.length/rs.length>.4?8:4)}
+  // 7 نقطة التعادل اليومية
+  if(a.n>=7){const be=a.avgExp,abv=rs.filter(r=>r.inc>=be).length;
+    add(abv/rs.length>=.5?'good':'warn','target','حد التعادل اليومي',`متوسط مدفوعاتك اليومي ${M(be)}؛ يعني لازم البيع اليومي يفضل فوق كده. حققته في ${abv} يوم من ${rs.length} (${pctTxt(abv/rs.length,0)}).`,5)}
+  // 8 مصروفات التشغيل
+  if(a.op>0)add('info','info',`التشغيل ${pctTxt(a.op/a.inc,1)} من الإيراد`,`مصروفات التشغيل (مرتبات، كهرباء، أكياس…) ${M(a.op)}. ${(()=>{const t=Object.entries(a.byCat).filter(([c])=>CM[c]&&CM[c].type==='op').sort((x,y)=>y[1].t-x[1].t)[0];return t?`أكبر بند: ${esc(CM[t[0]].name)} ${M(t[1].t)}.`:''})()}`,3);
+  // 9 شواذ
+  if(rs.length>=10){const mi=mean(rs.map(r=>r.inc)),si=std(rs.map(r=>r.inc)),me=mean(rs.map(r=>r.exp)),se=std(rs.map(r=>r.exp));
+    const oi=rs.filter(r=>si&&r.inc>0&&Math.abs(r.inc-mi)>2*si),oe=rs.filter(r=>se&&r.exp-me>2*se);
+    if(oi.length||oe.length)add('warn','warn','أرقام تستاهل مراجعة',[oi.length?`إيراد غير معتاد في ${oi.map(r=>dShort(r.k)).join('، ')}`:'',oe.length?`مدفوعات عالية جدًا في ${oe.map(r=>dShort(r.k)).join('، ')}`:''].filter(Boolean).join(' — ')+'. لو الأرقام صح تمام، لو فيه غلطة إدخال صحّحها.',6)}
+  // 10 شركات متأخرة عن ميعادها
+  const ref=refDate(),late=[];
+  DB.cats.filter(c=>c.on&&c.type==='sup').forEach(c=>{const r=payRhythm(c.id);if(r.n>=3&&r.gap>0){const since=diffDays(r.last,ref);if(since>r.gap*DB.settings.overdue)late.push({c,since,gap:r.gap,typ:r.typ})}});
+  if(late.length)add('warn','clock',`${late.length} شركة عدّى ميعاد دفعها المعتاد`,late.slice(0,4).map(x=>`${esc(x.c.name)} (بتاخد دفعة كل ~${Math.round(x.gap)} يوم، آخر دفعة من ${x.since} يوم)`).join('، ')+'. ممكن يكون في مستحقات متراكمة.',7);
+  // 11 مقارنة بالفترة السابقة
+  if(pi.prev&&rs.length>=5){const pp=periodInfo(pi.prev);if(pp.recs.length>=5){const d=a.avgInc/pp.a.avgInc-1;
+    add(d>=0?'good':'warn',d>=0?'up':'down',`المبيعات ${d>=0?'أعلى':'أقل'} من ${pp.label}`,`متوسط البيع اليومي ${M(a.avgInc)} مقابل ${M(pp.a.avgInc)} (${d>=0?'+':''}${pctTxt(d,1)}).`,7)}}
+  if(pi.p.mode==='month'&&rs.length>=5){
+    const ly=RECS.filter(r=>ymOf(r.k)===`${pi.p.y-1}-${pad(pi.p.m)}`);
+    if(ly.length>=10){const g=agg(ly),d=a.avgInc/g.avgInc-1;
+      add(d>=0?'good':'warn',d>=0?'up':'down',`${d>=0?'أعلى':'أقل'} من نفس الشهر السنة اللي فاتت`,`متوسط البيع اليومي ${M(a.avgInc)} مقابل ${M(g.avgInc)} في ${mLabel(pi.p.y-1,pi.p.m)} (${d>=0?'+':''}${pctTxt(d,1)}). المقارنة بنفس الشهر بتشيل أثر المواسم.`,7)}
+  }
+  return out.sort((x,y)=>y.pr-x.pr);
+}
+
+/* ====================== التخزين والحماية ====================== */
+let LOAD_ERR=null,FIRST_RUN=false,LAST_REP=null;
+const isRealKey=k=>/^\d{4}-\d{2}-\d{2}$/.test(k)&&key(parseKey(k))===k;
+function sanitize(d){
+  const rep={fixed:0,dropped:0,unknownCats:0};
+  if(!d||typeof d!=='object')d={};
+  if(!Array.isArray(d.cats))d.cats=[];
+  d.days=d.days&&typeof d.days==='object'?d.days:{};
+  d.settings=Object.assign({},DEF_SET,d.settings||{});
+  const ids=new Set();
+  d.cats=d.cats.filter(c=>c&&c.id!=null&&c.name&&!ids.has(String(c.id))&&ids.add(String(c.id))).map(c=>({id:String(c.id),name:String(c.name),type:c.type==='op'?'op':'sup',on:c.on===0||c.on===false?0:1}));
+  const days={};
+  for(const k of Object.keys(d.days)){
+    if(!isRealKey(k)){rep.dropped++;continue}
+    const x=d.days[k]||{};let i=+x.i;if(!isFinite(i)){i=0;rep.fixed++}
+    const e={};
+    for(const c in (x.e||{})){
+      const v=+x.e[c];if(!isFinite(v)||v<=0){rep.fixed++;continue}
+      if(!ids.has(c)){d.cats.push({id:c,name:'بند غير معروف ('+c+')',type:'sup',on:0});ids.add(c);rep.unknownCats++}
+      e[c]=v}
+    days[k]={i,e};if(x.n)days[k].n=String(x.n);
+  }
+  d.days=days;d.v=2;LAST_REP=rep;return d;
+}
+function loadDB(){
+  let raw=null;try{raw=localStorage.getItem(LS)}catch(e){STORE_OK=false}
+  if(raw){try{DB=sanitize(JSON.parse(raw));return}
+    catch(e){try{localStorage.setItem(LS+'_corrupt',raw)}catch(_){}LOAD_ERR='corrupt'}}
+  let raw2=null;try{raw2=localStorage.getItem(LS+'_prev')}catch(e){}
+  if(raw2){try{DB=sanitize(JSON.parse(raw2));LOAD_ERR=LOAD_ERR||'recovered';persist();return}catch(e){}}
+  FIRST_RUN=!raw;DB=sanitize(JSON.parse(JSON.stringify(SEED)));persist();
+}
+let auxT=null;
+function persist(){
+  try{const old=localStorage.getItem(LS);const nw=JSON.stringify(DB);
+    if(old&&old!==nw)try{localStorage.setItem(LS+'_prev',old)}catch(_){}
+    localStorage.setItem(LS,nw);STORE_OK=true}catch(e){STORE_OK=false}
+  clearTimeout(auxT);auxT=setTimeout(aux,900);
+}
+function reloadFromStorage(){try{const raw=localStorage.getItem(LS);if(raw){DB=sanitize(JSON.parse(raw));HIST=[];render();toast('البيانات اتحدثت من نافذة تانية مفتوحة')}}catch(e){}}
+addEventListener('storage',e=>{if(e.key===LS&&e.newValue)reloadFromStorage()});
+
+/* ---------- IndexedDB: نسخ تلقائية + مقبض الملف ---------- */
+const IDB={db:null,
+  open(){return this.db?Promise.resolve(this.db):new Promise((res,rej)=>{
+    try{const r=indexedDB.open('vetcare_sales',1);
+      r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore('kv');d.createObjectStore('snaps',{keyPath:'id'})};
+      r.onsuccess=()=>{this.db=r.result;res(r.result)};r.onerror=()=>rej(r.error)}catch(e){rej(e)}})},
+  async tx(store,mode,fn){const db=await this.open();return new Promise((res,rej)=>{const t=db.transaction(store,mode),s=t.objectStore(store),r=fn(s);t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error)})},
+  get(store,k){return this.tx(store,'readonly',s=>s.get(k))},
+  put(store,v,k){return this.tx(store,'readwrite',s=>k===undefined?s.put(v):s.put(v,k))},
+  del(store,k){return this.tx(store,'readwrite',s=>s.delete(k))},
+  all(store){return this.tx(store,'readonly',s=>s.getAll())}
+};
+async function snap(why,auto){
+  try{
+    const data=JSON.stringify(DB),ts=Date.now();
+    await IDB.put('snaps',{id:new Date(ts).toISOString()+(auto?'':'m'),ts,why,auto:!!auto,days:Object.keys(DB.days).length,size:data.length,data});
+    const all=(await IDB.all('snaps')).sort((a,b)=>a.ts-b.ts);
+    const autos=all.filter(x=>x.auto),man=all.filter(x=>!x.auto);
+    for(const x of autos.slice(0,Math.max(0,autos.length-21)))await IDB.del('snaps',x.id);
+    for(const x of man.slice(0,Math.max(0,man.length-12)))await IDB.del('snaps',x.id);
+    return true;
+  }catch(e){return false}
+}
+async function autoSnapshot(){
+  if(!Object.keys(DB.days).length)return;
+  try{const all=await IDB.all('snaps'),t=todayKey();
+    if(!all.some(x=>x.auto&&key(new Date(x.ts))===t))await snap('نسخة تلقائية يومية',true)}catch(e){}
+}
+/* ---------- الحفظ التلقائي في ملف على الجهاز ---------- */
+const FS={ok:typeof window.showSaveFilePicker==='function',h:null,state:'none',name:'',last:0,err:''};
+async function fsInit(){
+  if(!FS.ok)return;
+  try{const h=await IDB.get('kv','fh');if(!h)return;FS.h=h;FS.name=h.name;
+    const p=await h.queryPermission({mode:'readwrite'});FS.state=p==='granted'?'on':'perm';render()}catch(e){}
+}
+async function fsLink(){
+  try{const h=await showSaveFilePicker({suggestedName:'VetCare-data.json',types:[{description:'ملف بيانات VetCare',accept:{'application/json':['.json']}}]});
+    FS.h=h;FS.name=h.name;await IDB.put('kv',h,'fh');FS.state='on';await fsWrite(true);render();toast('تم تفعيل الحفظ التلقائي في الملف ✔')}
+  catch(e){if(e&&e.name!=='AbortError')toast('مقدرتش أفعّل الحفظ في ملف: '+(e.message||e))}
+}
+async function fsPerm(){
+  try{if(await FS.h.requestPermission({mode:'readwrite'})==='granted'){FS.state='on';await fsWrite(true);render();toast('الحفظ في الملف شغال ✔')}}catch(e){toast('لازم توافق على الإذن')}
+}
+async function fsUnlink(){try{await IDB.del('kv','fh')}catch(e){}FS.h=null;FS.state='none';FS.name='';render();toast('تم إيقاف الحفظ في الملف')}
+async function fsWrite(force){
+  if(!FS.h||FS.state!=='on')return;
+  try{if(!force&&(await FS.h.queryPermission({mode:'readwrite'}))!=='granted'){FS.state='perm';render();return}
+    const w=await FS.h.createWritable();await w.write(JSON.stringify(DB));await w.close();FS.last=Date.now();FS.err='';
+    const c=$('#fsChip');if(c)c.innerHTML=fsChipInner()}
+  catch(e){FS.err=e.message||String(e);FS.state='err';render()}
+}
+function fsChipInner(){
+  const t=FS.last?new Date(FS.last).toLocaleTimeString('ar-EG-u-nu-latn',{hour:'2-digit',minute:'2-digit'}):'';
+  return FS.state==='on'?`${ic('check')}<div>محفوظ تلقائيًا في <b>${esc(FS.name)}</b>${t?'<br>آخر حفظ '+t:''}</div>`:'';
+}
+async function aux(){ // بعد كل تعديل: ملف + نسخة يومية
+  fsWrite();autoSnapshot();
+}
+async function initStorage(){
+  try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+  await autoSnapshot();await fsInit();
+}
+/* ---------- فحص سلامة البيانات ---------- */
+function healthCheck(){
+  const out=[],rs=RECS;const push=(t,txt,keys)=>out.push({t,txt,keys:keys||[]});
+  const inc0=rs.filter(r=>r.inc===0&&r.exp>0).map(r=>r.k);
+  if(inc0.length)push('warn',`${inc0.length} يوم فيه مدفوعات بدون إيراد (ممكن الإيراد لسه ما اتسجلش)`,inc0);
+  const fut=rs.filter(r=>r.k>addDays(todayKey(),1)).map(r=>r.k);
+  if(fut.length)push('warn',`${fut.length} يوم بتاريخ في المستقبل`,fut);
+  const incs=rs.map(r=>r.inc).filter(v=>v>0),mi=median(incs);
+  const big=rs.filter(r=>mi&&r.inc>mi*6).map(r=>r.k);
+  if(big.length)push('warn',`${big.length} يوم إيراده أكبر من 6 أضعاف المعتاد — ممكن رقم إجمالي متسجل بالغلط`,big);
+  const neg=rs.filter(r=>r.inc<0).map(r=>r.k);
+  if(neg.length)push('warn',`${neg.length} يوم بإيراد سالب (مرتجعات؟)`,neg);
+  const names={};DB.cats.forEach(c=>{const n=norm(c.name);(names[n]=names[n]||[]).push(c)});
+  const dup=Object.values(names).filter(a=>a.length>1);
+  if(dup.length)push('warn',`أسماء شركات مكررة: ${dup.map(a=>esc(a[0].name)).join('، ')} — ادمجهم من صفحة الشركة`);
+  const unk=DB.cats.filter(c=>c.name.startsWith('بند غير معروف'));
+  if(unk.length)push('warn',`${unk.length} بند غير معروف (اتعمل تلقائيًا لدفعات كان اسمها ضايع) — سمّيه أو ادمجه`);
+  if(rs.length>1){const miss=[];for(let k=rs[0].k;k<rs[rs.length-1].k;k=addDays(k,1))if(!RM[k])miss.push(k);
+    if(miss.length)push('info',`${miss.length} يوم ناقص بين أول وآخر يوم مسجل`,miss.slice(0,60))}
+  if(LAST_REP&&(LAST_REP.fixed||LAST_REP.dropped))push('info',`عند فتح البرنامج تم تنظيف ${LAST_REP.fixed+LAST_REP.dropped} قيمة غير صالحة`);
+  if(!out.length)push('good','كل حاجة سليمة ✔ — مفيش مشاكل في البيانات');
+  return out;
+}
+
+/* ====================== الرسوم البيانية (SVG بدون مكتبات) ====================== */
+let CH={};
+function slot(id,fn,h){CH[id]=fn;return `<div class="chart" data-cid="${id}" style="min-height:${h||0}px"></div>`}
+function drawCharts(){$$('.chart[data-cid]').forEach(el=>{const f=CH[el.dataset.cid];if(f){const w=Math.max(220,Math.floor(el.clientWidth));el.innerHTML=f(w)}})}
+function niceScale(min,max,n=4){
+  if(min===max){max=min+1}
+  const step0=(max-min)/n,mag=Math.pow(10,Math.floor(Math.log10(step0))),r=step0/mag,step=(r<=1?1:r<=2?2:r<=2.5?2.5:r<=5?5:10)*mag;
+  const lo=Math.floor(min/step+1e-9)*step,hi=Math.ceil(max/step-1e-9)*step,ticks=[];
+  for(let v=lo;v<=hi+step*1e-6;v+=step)ticks.push(Math.round(v*1e6)/1e6);
+  return {lo,hi,ticks};
+}
+const tipAttr=h=>` data-tip="${esc(h)}"`;
+const tipRow=(color,name,val)=>`<div><i style="background:${color}"></i>${esc(name)}: <b style="display:inline">${val}</b></div>`;
+
+function lineChart(w,o){
+  const h=o.h||280,L=54,R=10,T=10,B=26,W=w-L-R,H=h-T-B,n=o.xs.length;
+  let mn=Infinity,mx=-Infinity;
+  o.series.forEach(s=>s.vals.forEach(v=>{if(v!=null){mn=Math.min(mn,v);mx=Math.max(mx,v)}}));
+  if(!isFinite(mn)){mn=0;mx=1}
+  mn=Math.min(mn,0);const sc=niceScale(mn,mx,4);
+  const X=i=>L+(n<2?W/2:i/(n-1)*W),Y=v=>T+H-(v-sc.lo)/(sc.hi-sc.lo)*H;
+  let g='';
+  sc.ticks.forEach(t=>{g+=`<line x1="${L}" x2="${w-R}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(${t===0?'--axis':'--grid'})" stroke-width="1"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${fmtN(t)}</text>`});
+  const every=Math.max(1,Math.ceil(n/Math.max(2,Math.floor(W/62))));
+  for(let i=0;i<n;i+=every)g+=`<text x="${X(i)}" y="${h-7}" text-anchor="middle" font-size="11" fill="var(--muted)">${esc(o.xLabel(o.xs[i]))}</text>`;
+  o.series.forEach(s=>{
+    let d='',seg=[];const flush=()=>{if(seg.length){d+='M'+seg.join('L');seg=[]}};
+    s.vals.forEach((v,i)=>{if(v==null)flush();else seg.push(X(i).toFixed(1)+','+Y(v).toFixed(1))});flush();
+    if(s.area){const pts=s.vals.map((v,i)=>v==null?null:[X(i),Y(v)]).filter(Boolean);
+      if(pts.length>1)g+=`<path d="M${pts[0][0]},${Y(Math.max(0,sc.lo))}L${pts.map(p=>p.join(',')).join('L')}L${pts[pts.length-1][0]},${Y(Math.max(0,sc.lo))}Z" fill="${s.color}" opacity=".10"/>`}
+    g+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.sw||2}" stroke-linejoin="round" stroke-linecap="round"${s.dash?' stroke-dasharray="5 4"':''}/>`;
+  });
+  const cw=n<2?W:W/(n-1);
+  for(let i=0;i<n;i++){
+    const rows=o.series.filter(s=>s.vals[i]!=null&&!s.hideTip).map(s=>tipRow(s.color,s.name,fmtN(s.vals[i])+' '+cur())).join('');
+    const extra=o.tipExtra?o.tipExtra(i):'';
+    if(!rows&&!extra)continue;
+    const dots=o.series.filter(s=>s.vals[i]!=null).map(s=>`<circle cx="${X(i)}" cy="${Y(s.vals[i])}" r="4.5" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>`).join('');
+    g+=`<g class="hov"${tipAttr(`<b>${dLong(o.xs[i])}</b>${rows}${extra}`)}><rect x="${X(i)-cw/2}" y="${T}" width="${cw}" height="${H}" fill="transparent"/><g class="hl"><line x1="${X(i)}" x2="${X(i)}" y1="${T}" y2="${T+H}" stroke="var(--axis)" stroke-dasharray="3 3"/>${dots}</g></g>`;
+  }
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${g}</svg>`;
+}
+function barPath(x,y,w,h,r){r=Math.min(r,w/2,h);return h<=0?'':`M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`}
+function groupedBars(w,o){
+  const h=o.h||260,L=54,R=8,T=10,B=28,W=w-L-R,H=h-T-B,n=o.labels.length,ns=o.series.length;
+  const mx=Math.max(1,...o.series.flatMap(s=>s.vals.map(v=>v||0)));const sc=niceScale(0,mx,4);
+  const Y=v=>T+H-(v-sc.lo)/(sc.hi-sc.lo)*H;let g='';
+  sc.ticks.forEach(t=>{g+=`<line x1="${L}" x2="${w-R}" y1="${Y(t)}" y2="${Y(t)}" stroke="var(${t===0?'--axis':'--grid'})"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${fmtN(t)}</text>`});
+  const gw=W/n,bw=Math.max(4,Math.min(26,(gw-10)/ns-2));
+  for(let i=0;i<n;i++){
+    const cx=L+gw*(i+.5),x0=cx-(ns*bw+(ns-1)*2)/2;
+    let bars='';o.series.forEach((s,j)=>{const v=s.vals[i]||0;bars+=`<path d="${barPath(x0+j*(bw+2),Y(v),bw,Y(0)-Y(v),4)}" fill="${s.color}"/>`});
+    const rows=o.series.map(s=>tipRow(s.color,s.name,fmtN(s.vals[i]||0)+' '+cur())).join('');
+    g+=`<g class="hov"${tipAttr(`<b>${esc(o.labels[i])}</b>${rows}${o.tipExtra?o.tipExtra(i):''}`)}><rect class="hl" x="${L+gw*i+2}" y="${T}" width="${gw-4}" height="${H}" fill="var(--hover)" rx="6"/>${bars}<rect x="${L+gw*i}" y="${T}" width="${gw}" height="${H+B}" fill="transparent"/><text x="${cx}" y="${h-8}" text-anchor="middle" font-size="11.5" fill="var(--ink2)">${esc(o.labels[i])}</text></g>`;
+  }
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${g}</svg>`;
+}
+function spark(vals,color,w=96,h=30){
+  const v=vals.filter(x=>x!=null);if(v.length<2)return '';
+  const mn=Math.min(...v,0),mx=Math.max(...v);const X=i=>i/(vals.length-1)*w,Y=x=>h-2-(x-mn)/((mx-mn)||1)*(h-4);
+  const pts=vals.map((x,i)=>x==null?null:[X(i).toFixed(1),Y(x).toFixed(1)]).filter(Boolean);
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"><path d="M${pts[0][0]},${h}L${pts.map(p=>p.join(',')).join('L')}L${pts[pts.length-1][0]},${h}Z" fill="${color}" opacity=".13"/><path d="M${pts.map(p=>p.join(',')).join('L')}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+}
+function donut(items,size=170,center=''){
+  const tot=sum(items.map(i=>i.v))||1,R=size/2-14,C=2*Math.PI*R;let off=0,g='';
+  items.forEach(it=>{const len=it.v/tot*C,gap=items.length>1?2:0;
+    g+=`<circle class="hov" cx="${size/2}" cy="${size/2}" r="${R}" fill="none" stroke="${it.color}" stroke-width="22" stroke-dasharray="${Math.max(0,len-gap)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 ${size/2} ${size/2})"${tipAttr(`<b>${esc(it.name)}</b>${fmtN(it.v)} ${cur()} — ${pctTxt(it.v/tot,1)}`)}/>`;off+=len});
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">${g}<text x="${size/2}" y="${size/2-2}" text-anchor="middle" font-size="12" fill="var(--muted)">الإجمالي</text><text x="${size/2}" y="${size/2+18}" text-anchor="middle" font-size="17" font-weight="800" fill="var(--ink)">${center}</text></svg>`;
+}
+function ring(p,color,label,sub){
+  const s=150,R=62,C=2*Math.PI*R,v=Math.max(0,Math.min(1,p));
+  return `<div class="ring"><svg viewBox="0 0 ${s} ${s}" width="${s}" height="${s}"><circle cx="75" cy="75" r="${R}" fill="none" stroke="var(--grid)" stroke-width="13"/><circle cx="75" cy="75" r="${R}" fill="none" stroke="${color}" stroke-width="13" stroke-linecap="round" stroke-dasharray="${C*v} ${C}" transform="rotate(-90 75 75)"/></svg><div class="ct"><div><b>${label}</b><div class="muted" style="font-size:11.5px">${sub}</div></div></div></div>`;
+}
+/* Tooltip */
+let TIP;
+function initTip(){
+  TIP=document.createElement('div');TIP.className='tip';document.body.appendChild(TIP);
+  const mv=e=>{const x=e.clientX,y=e.clientY,w=TIP.offsetWidth,hh=TIP.offsetHeight;let l=x+14,t=y+14;if(l+w>innerWidth-8)l=x-w-14;if(t+hh>innerHeight-8)t=y-hh-14;TIP.style.left=Math.max(6,l)+'px';TIP.style.top=Math.max(6,t)+'px'};
+  document.addEventListener('mouseover',e=>{const t=e.target.closest('[data-tip]');if(t){TIP.innerHTML=t.dataset.tip;TIP.classList.add('on');mv(e)}else TIP.classList.remove('on')});
+  document.addEventListener('mousemove',e=>{if(TIP.classList.contains('on'))mv(e)});
+  document.addEventListener('scroll',()=>TIP.classList.remove('on'),true);
+  // اللمس: اضغط أو اسحب صباعك على الرسم لعرض التفاصيل
+  let hideT;const touchShow=(x,y)=>{const el=document.elementFromPoint(x,y),t=el&&el.closest('[data-tip]');
+    if(t){TIP.innerHTML=t.dataset.tip;TIP.classList.add('on');mv({clientX:x,clientY:y-70});clearTimeout(hideT);hideT=setTimeout(()=>TIP.classList.remove('on'),2800)}};
+  document.addEventListener('touchstart',e=>{const p=e.touches[0];if(e.target.closest('.chart'))touchShow(p.clientX,p.clientY)},{passive:true});
+  document.addEventListener('touchmove',e=>{const p=e.touches[0];if(e.target.closest('.chart'))touchShow(p.clientX,p.clientY)},{passive:true});
+}
+
+/* ====================== الصفحات ====================== */
+let S={page:'dash',ledF:'all',ledQ:'',supQ:'',supT:'all',supSort:'total',mxAll:false,mode:'daily',sim:{i:0,s:0,o:0},sel:null};
+const PAGES_META={dash:['الرئيسية','home'],ledger:['اليومية','cal'],matrix:['جدول الشركات','grid'],suppliers:['الموردين والشركات','truck'],insights:['التحليل الذكي','zap'],reports:['التقارير','file'],settings:['الإعدادات والبيانات','set']};
+const NEEDS_PERIOD=['dash','ledger','matrix','suppliers','insights','reports'];
+const empty=(t,s,btn)=>`<div class="card"><div class="empty"><b>${t}</b>${s}${btn?`<div style="margin-top:14px">${btn}</div>`:''}</div></div>`;
+
+function render(){
+  const sy=window.scrollY;buildIndex();applyTheme();CH={};
+  const pi=periodInfo();
+  const nav=Object.entries(PAGES_META).map(([k,[t,i]])=>`<button class="${S.page===k?'on':''}" data-act="nav" data-p="${k}">${ic(i)}<span>${t}</span></button>`).join('');
+  const days=Math.floor((Date.now()-DB.settings.lastBackup)/864e5);
+  const bk=DB.settings.lastBackup?(days>7?`<div class="bk warn">${ic('warn')}<div>آخر نسخة احتياطية من ${days} يوم<br><a href="#" data-act="backup" style="color:inherit;font-weight:700">خد نسخة دلوقتي</a></div></div>`:`<div class="bk">${ic('check')}<div>نسخة احتياطية من ${days?days+' يوم':'النهارده'}</div></div>`)
+    :`<div class="bk warn">${ic('warn')}<div>لسه ماخدتش نسخة احتياطية<br><a href="#" data-act="backup" style="color:inherit;font-weight:700">احفظ نسخة دلوقتي</a></div></div>`;
+  let fsBox='';
+  if(FS.ok){fsBox=FS.state==='on'?`<div class="bk" id="fsChip">${fsChipInner()}</div>`:FS.state==='perm'?`<div class="bk warn">${ic('warn')}<div>الحفظ في ملف <b>${esc(FS.name)}</b> محتاج تفعيل<br><a href="#" data-act="fsperm" style="color:inherit;font-weight:700">فعّله دلوقتي</a></div></div>`:FS.state==='err'?`<div class="bk warn">${ic('warn')}<div>تعذر الحفظ في الملف<br><a href="#" data-act="fslink" style="color:inherit;font-weight:700">اختار ملف تاني</a></div></div>`:`<div class="bk">${ic('save')}<div>احمي بياناتك أكتر<br><a href="#" data-act="fslink" style="font-weight:700;color:var(--brand)">فعّل الحفظ التلقائي في ملف</a></div></div>`}
+  const perSel=NEEDS_PERIOD.includes(S.page)?periodSelector():'';
+  $('#app').innerHTML=`<div class="app">
+   <aside class="side"><div class="brand"><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><div><b>${esc(DB.settings.shop)}</b><small>سجل المبيعات الذكي</small></div></div>
+    <nav class="nav">${nav}</nav><div class="sp"></div>${FS.state==='on'?'':bk}${fsBox}</aside>
+   <div class="main"><header class="top"><h1>${PAGES_META[S.page][0]}</h1>${perSel}
+     <button class="btn iconbtn hide-sm" data-act="palette" title="بحث وأوامر (Ctrl+K)">${ic('search')}</button>
+     <button class="btn iconbtn" data-act="theme" title="الوضع الليلي">${ic(isDark()?'sun':'moon')}</button>
+     <button class="btn pri" data-act="new">${ic('plus')}<span>تسجيل يوم</span></button></header>
+    <main class="page" id="main">${bkBanner()}${iosBanner()}${loadBanner()}${(PAGES[S.page])(pi)}</main></div></div>`;
+  drawCharts();window.scrollTo(0,sy);saveUI();
+  if(!STORE_OK&&!window._warned){window._warned=1;toast('⚠ المتصفح مش سامح بحفظ البيانات — استخدم النسخ الاحتياطي كتير')}
+}
+const IS_IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const IS_STANDALONE=()=>navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;
+function iosBanner(){
+  if(!IS_IOS||IS_STANDALONE()||!/^https?:/.test(location.protocol))return '';
+  try{if(localStorage.getItem('vetcare_ios_hint')==='1')return ''}catch(e){}
+  return `<div class="banner">${ic('info')}<div><b>ثبّت البرنامج على الآيفون:</b> اضغط زر المشاركة (المربع اللي فيه سهم) ثم <b>"إضافة إلى الشاشة الرئيسية"</b>، وبعدها افتحه من الأيقونة واستخدمه من هناك بس. بيانات المتصفح غير بيانات الأيقونة.</div><button class="btn sm" data-act="iosdismiss" style="margin-inline-start:auto">تمام</button></div>`;
+}
+function bkBanner(){
+  if(FS.state==='on'||!RECS.length)return '';
+  const d=DB.settings.lastBackup?Math.floor((Date.now()-DB.settings.lastBackup)/864e5):999;
+  if(d<=7)return '';
+  return `<div class="banner bkb" style="background:color-mix(in srgb,var(--warn) 10%,transparent);border-color:color-mix(in srgb,var(--warn) 40%,transparent)">${ic('warn')}<div>${DB.settings.lastBackup?`آخر نسخة احتياطية من ${d} يوم`:'لسه ماخدتش نسخة احتياطية'} — خدها عشان بياناتك تبقى في أمان.</div><button class="btn sm" data-act="backup" style="margin-inline-start:auto">نسخة دلوقتي</button></div>`;
+}
+function loadBanner(){
+  if(!LOAD_ERR)return '';
+  const m={corrupt:'ملف البيانات كان تالف. البرنامج حاول يسترجع أحدث نسخة سليمة تلقائيًا، والنسخة التالفة اتحفظت على جنب. راجع بياناتك، ولو ناقصة استرجع من "نسخ تلقائية" في الإعدادات.',recovered:'اتسترجعت بياناتك من النسخة الاحتياطية الداخلية الأخيرة. راجع آخر أيام مسجلة.'};
+  return `<div class="banner" style="background:color-mix(in srgb,var(--warn) 10%,transparent);border-color:color-mix(in srgb,var(--warn) 40%,transparent)">${ic('warn')}<div>${m[LOAD_ERR]||''}</div><button class="btn sm" data-act="dismissErr" style="margin-inline-start:auto">تمام</button></div>`;
+}
+const UI_KEY='vetcare_ui_v1';
+function saveUI(){try{localStorage.setItem(UI_KEY,JSON.stringify({page:S.page,per:PER}))}catch(e){}}
+function loadUI(){try{const u=JSON.parse(localStorage.getItem(UI_KEY)||'null');if(u&&PAGES_META[u.page])S.page=u.page;if(u&&u.per&&u.per.mode){
+  if(u.per.mode==='month'&&u.per.y>2000&&u.per.m>=1&&u.per.m<=12)PER=u.per;else if(u.per.mode==='year'&&u.per.y>2000)PER=u.per;else if(u.per.mode==='all')PER=u.per}}catch(e){}}
+function periodSelector(){
+  const ms=monthsList().reverse(),ys=[...new Set(ms.map(x=>x[0]))];
+  const v=PER.mode==='month'?`m:${PER.y}-${PER.m}`:PER.mode==='year'?`y:${PER.y}`:'all';
+  const opts=[`<optgroup label="شهور">`+ms.map(([y,m])=>`<option value="m:${y}-${m}"${v==='m:'+y+'-'+m?' selected':''}>${mLabel(y,m)}</option>`).join('')+`</optgroup>`,
+    `<optgroup label="سنين">`+ys.map(y=>`<option value="y:${y}"${v==='y:'+y?' selected':''}>سنة ${y} كاملة</option>`).join('')+`</optgroup>`,
+    `<option value="all"${v==='all'?' selected':''}>كل الفترة</option>`].join('');
+  return `<div class="per"><button class="btn iconbtn" data-act="pp" data-d="-1" ${PER.mode==='all'?'disabled':''}>${ic('chr')}</button><select class="sel" data-act="psel" style="font-weight:700">${opts}</select><button class="btn iconbtn" data-act="pp" data-d="1" ${PER.mode==='all'?'disabled':''}>${ic('chl')}</button></div>`;
+}
+const isDark=()=>{const t=DB.settings.theme;return t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches)};
+function applyTheme(){const t=DB.settings.theme;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t)}
+
+/* ---------- الرئيسية ---------- */
+const delta=(cur_,prev_,inv)=>{
+  if(prev_==null||!isFinite(prev_)||!prev_)return '';
+  const d=cur_/prev_-1,good=inv?d<=0:d>=0,z=Math.abs(d)<.005;
+  return `<span class="delta ${z?'nt':good?'up':'dn'}">${z?'—':(d>0?'▲':'▼')} ${pctTxt(Math.abs(d),0)}</span>`;
+};
+function dash(pi){
+  const {recs,a}=pi;
+  if(!recs.length){
+    if(!RECS.length)return empty('أهلًا بيك في سجل المبيعات 👋','ابدأ بتسجيل أول يوم، أو لو عندك بيانات على جهاز تاني استرجع نسخة احتياطية منها.',`<div class="flex" style="justify-content:center"><button class="btn pri" data-act="new">${ic('plus')} تسجيل أول يوم</button><button class="btn" data-act="restore">${ic('ul')} استرجاع نسخة احتياطية</button><button class="btn" data-act="import">${ic('ul')} استيراد من إكسل</button></div>`);
+    return empty('مفيش بيانات في الفترة دي',`اختار شهر تاني من فوق، أو سجّل أول يوم.`,`<button class="btn pri" data-act="new">${ic('plus')} تسجيل يوم</button>`);}
+  const pp=pi.prev?periodInfo(pi.prev):null,hasP=pp&&pp.recs.length>=3&&a.n>=5;
+  const pl=hasP?pp.label:'';
+  const isMonth=PER.mode==='month';
+  const kp=(lbl,col,val,d,foot,sp)=>`<div class="card kpi c3"><div class="lbl"><span class="dot" style="background:${col}"></span>${lbl}</div><div class="val">${val}</div><div class="foot"><span>${d?d+' <span style="font-size:11.5px">عن '+esc(pl)+' (بالمتوسط اليومي)</span>':foot}</span><span>${sp||''}</span></div></div>`;
+  const spI=spark(recs.map(r=>r.inc),'var(--c1)'),spE=spark(recs.map(r=>r.exp),'var(--c2)'),spN=spark(recs.map(r=>r.net),'var(--c3)');
+  let h=`<div class="grid">`;
+  // تنبيه أيام ناقصة
+  const miss=isMonth?missingDays():[];
+  if(miss.length)h+=`<div class="c12"><div class="banner">${ic('info')}<div>فيه <b>${miss.length}</b> ${miss.length>2?'أيام':'يوم'} مش مسجلة في ${pi.label} (${miss.slice(0,4).map(dShort).join('، ')}${miss.length>4?'…':''}).</div><button class="btn sm" data-act="edit" data-k="${miss[0]}" style="margin-inline-start:auto">سجّل ${dShort(miss[0])}</button></div></div>`;
+  const inc0=recs.filter(r=>r.inc===0&&r.exp>0);
+  if(inc0.length)h+=`<div class="c12"><div class="banner" style="background:color-mix(in srgb,var(--warn) 10%,transparent);border-color:color-mix(in srgb,var(--warn) 40%,transparent)">${ic('warn')}<div><b>${inc0.length}</b> ${inc0.length>2?'أيام':'يوم'} فيها مدفوعات بدون إيراد (${inc0.slice(0,4).map(r=>dShort(r.k)).join('، ')}${inc0.length>4?'…':''}) — لو الإيراد ما اتسجلش لسه، الصافي هيبان أقل من الحقيقي.</div><button class="btn sm" data-act="edit" data-k="${inc0[0].k}" style="margin-inline-start:auto">افتح ${dShort(inc0[0].k)}</button></div></div>`;
+  h+=kp('الإيراد','var(--c1)',M(a.inc),hasP?delta(a.avgInc,pp.a.avgInc):'',`متوسط اليوم ${M(a.avgInc)}`,spI);
+  h+=kp('المدفوعات','var(--c2)',M(a.exp),hasP?delta(a.avgExp,pp.a.avgExp,true):'',`شركات ${P(a.exp?a.sup/a.exp:0,0)} · تشغيل ${P(a.exp?a.op/a.exp:0,0)}`,spE);
+  h+=kp('صافي الدخل','var(--c3)',`<span class="${a.net>=0?'pos':'neg'}">${M(a.net)}</span>`,hasP?delta(a.n?a.net/a.n:0,pp.a.n?pp.a.net/pp.a.n:0):'',`الإيراد − المدفوعات`,spN);
+  h+=kp('هامش الصافي','var(--c4)',P(a.margin),hasP&&pp.a.margin?`<span class="delta ${a.margin>=pp.a.margin?'up':'dn'}">${a.margin>=pp.a.margin?'▲':'▼'} ${Math.abs((a.margin-pp.a.margin)*100).toFixed(1)} نقطة</span>`:'',`من كل 100 ج بتبيعهم، فاضل ${Math.round(a.margin*100)}`,'');
+  // الرسم الأساسي
+  h+=`<div class="card c8"><div class="hd"><div><h3>${isMonth?'الإيراد والمدفوعات يوم بيوم':'الإيراد والمدفوعات بالشهر'}</h3><div class="sub">مرّر الماوس على أي يوم عشان تشوف التفاصيل</div></div>${isMonth?`<div class="seg">${[['daily','يومي'],['net','الصافي'],['cum','تراكمي']].map(([k,t])=>`<button class="${S.mode===k?'on':''}" data-act="mode" data-m="${k}">${t}</button>`).join('')}</div>`:''}</div>`;
+  h+=isMonth?mainLine(pi):monthBars(pi);h+=`</div>`;
+  // ملخص ذكي
+  const ins=buildInsights(pi).slice(0,3);
+  h+=`<div class="card c4"><h3>${ic('bulb')} ملخص ذكي</h3><div class="sub">أهم حاجة تلاحظها في ${esc(pi.label)}</div><div class="ins">${ins.map(insHtml).join('')}</div><div style="margin-top:12px"><button class="btn sm" data-act="nav" data-p="insights">كل التحليلات ${ic('chl',14)}</button></div></div>`;
+  // هدف / توقع
+  h+=`<div class="card c4">${targetCard(pi)}</div>`;
+  // تقويم أو جدول شهور
+  h+=`<div class="card c8">${isMonth?calendar(pi):monthsTable(pi)}</div>`;
+  // الشركات
+  h+=`<div class="card c6"><h3>${ic('truck')} أكبر المدفوعات</h3><div class="sub">حسب إجمالي اللي اتدفع في ${esc(pi.label)}</div>${topCats(a,9)}</div>`;
+  h+=`<div class="card c6"><h3>توزيع المدفوعات</h3><div class="sub">النسبة من إجمالي المدفوعات</div>${structure(a)}</div>`;
+  h+=`<div class="card c6"><h3>أنشط أيام الأسبوع</h3><div class="sub">متوسط الإيراد والمدفوعات لكل يوم</div><div class="legend"><span><i class="dot" style="background:var(--c1)"></i>متوسط الإيراد</span><span><i class="dot" style="background:var(--c2)"></i>متوسط المدفوعات</span></div>${weekdayChart(recs)}</div>`;
+  h+=`<div class="card c6"><h3>أفضل وأصعب الأيام</h3><div class="sub">اضغط على أي يوم لفتحه</div>${bestWorst(recs)}</div>`;
+  return h+`</div>`;
+}
+const insHtml=i=>`<div class="insi ${i.t}"><div class="b">${ic(i.ico,16)}</div><div><b>${i.title}</b><p>${i.text}</p></div></div>`;
+function missingDays(){
+  const {y,m}=PER;if(PER.mode!=='month')return [];const have=RECS.filter(r=>ymOf(r.k)===`${y}-${pad(m)}`);if(have.length<2)return [];
+  const out=[];for(let d=parseKey(have[0].k).getDate();d<parseKey(have[have.length-1].k).getDate();d++){const k=`${y}-${pad(m)}-${pad(d)}`;if(!RM[k])out.push(k)}
+  return out;
+}
+function mainLine(pi){
+  const {y,m}=PER,n=dim(y,m),xs=[];for(let d=1;d<=n;d++)xs.push(`${y}-${pad(m)}-${pad(d)}`);
+  const val=f=>xs.map(k=>RM[k]?f(RM[k]):null);
+  const xl=k=>String(+k.slice(8));
+  let series;
+  if(S.mode==='daily'){
+    const inc=val(r=>r.inc),exp=val(r=>r.exp);
+    const ma=inc.map((_,i)=>{const w=inc.slice(Math.max(0,i-6),i+1).filter(v=>v!=null);return w.length>=4?mean(w):null});
+    series=[{name:'الإيراد',color:'var(--c1)',vals:inc,area:1},{name:'المدفوعات',color:'var(--c2)',vals:exp},{name:'متوسط الإيراد (7 أيام)',color:'var(--ink2)',vals:ma,dash:1,sw:1.6}];
+  }else if(S.mode==='net'){
+    const net=val(r=>r.net);series=[{name:'الصافي اليومي',color:'var(--c3)',vals:net,area:1}];
+  }else{
+    let ci=0,ce=0;const I=[],E=[],Nn=[];
+    xs.forEach(k=>{const r=RM[k];if(r){ci+=r.inc;ce+=r.exp;I.push(ci);E.push(ce);Nn.push(ci-ce)}else{I.push(null);E.push(null);Nn.push(null)}});
+    series=[{name:'إيراد تراكمي',color:'var(--c1)',vals:I,area:1},{name:'مدفوعات تراكمية',color:'var(--c2)',vals:E},{name:'صافي تراكمي',color:'var(--c3)',vals:Nn,sw:2.4}];
+  }
+  const leg=`<div class="legend">${series.map(s=>`<span><i class="dot" style="background:${s.color}"></i>${s.name}</span>`).join('')}</div>`;
+  const id='main'+S.mode;
+  return leg+slot(id,w=>lineChart(w,{xs,series,xLabel:xl,h:290,tipExtra:i=>RM[xs[i]]?`<div style="opacity:.8;margin-top:3px">الصافي: <b style="display:inline">${fmtN(RM[xs[i]].net)}</b></div>`:''}),290);
+}
+function monthBars(pi){
+  const by={};pi.recs.forEach(r=>{const k=ymOf(r.k);(by[k]=by[k]||[]).push(r)});
+  const ks=Object.keys(by).sort();const ag=ks.map(k=>agg(by[k]));
+  const labels=ks.map(k=>AR_M[+k.slice(5)-1]+(PER.mode==='all'?' '+k.slice(2,4):''));
+  return `<div class="legend"><span><i class="dot" style="background:var(--c1)"></i>الإيراد</span><span><i class="dot" style="background:var(--c2)"></i>المدفوعات</span></div>`+
+   slot('mbars',w=>groupedBars(w,{labels,series:[{name:'الإيراد',color:'var(--c1)',vals:ag.map(x=>x.inc)},{name:'المدفوعات',color:'var(--c2)',vals:ag.map(x=>x.exp)}],tipExtra:i=>`<div style="margin-top:3px">الصافي: <b style="display:inline">${fmtN(ag[i].net)}</b> (${pctTxt(ag[i].margin,0)})</div>`,h:290}),290);
+}
+function monthsTable(pi){
+  const by={};pi.recs.forEach(r=>{const k=ymOf(r.k);(by[k]=by[k]||[]).push(r)});
+  const rows=Object.keys(by).sort().map(k=>{const a=agg(by[k]);return `<tr class="clk" data-act="gomonth" data-y="${k.slice(0,4)}" data-m="${+k.slice(5)}"><td>${AR_M[+k.slice(5)-1]} ${k.slice(0,4)}</td><td>${N(a.inc)}</td><td>${N(a.exp)}</td><td class="${a.net>=0?'pos':'neg'}">${N(a.net)}</td><td>${P(a.margin)}</td><td>${a.n}</td></tr>`}).join('');
+  return `<h3>ملخص الشهور</h3><div class="sub">اضغط على شهر عشان تفتحه</div><div class="tw" style="max-height:none"><table class="t"><thead><tr><th>الشهر</th><th>الإيراد</th><th>المدفوعات</th><th>الصافي</th><th>الهامش</th><th>أيام</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function calendar(pi){
+  const {y,m}=PER,n=dim(y,m),first=new Date(y,m-1,1).getDay(),off=WEEK_ORDER.indexOf(first);
+  const mx=Math.max(1,...pi.recs.map(r=>r.inc));
+  let h=`<h3>${ic('cal')} تقويم ${AR_M[m-1]}</h3><div class="sub">الدرجة الأغمق = بيع أعلى · النقطة البرتقالي = يوم المدفوعات فيه أكبر من الإيراد · اضغط للتعديل</div><div class="cal">`;
+  h+=WEEK_ORDER.map(d=>`<div class="wd">${AR_D[d]}</div>`).join('');
+  for(let i=0;i<off;i++)h+=`<div class="d pad"></div>`;
+  for(let d=1;d<=n;d++){
+    const k=`${y}-${pad(m)}-${pad(d)}`,r=RM[k];
+    if(!r){h+=`<div class="d emp" data-act="edit" data-k="${k}"><b>${d}</b><small>${k>todayKey()?'':'لم يُسجل'}</small></div>`;continue}
+    const p=Math.round(8+72*r.inc/mx),hi=p>48;
+    h+=`<div class="d${hi?' hi':''}" style="background:color-mix(in srgb,var(--c1) ${p}%,var(--surface2))" data-act="edit" data-k="${k}"${tipAttr(`<b>${dLong(k)}</b>الإيراد: ${fmtN(r.inc)}<br>المدفوعات: ${fmtN(r.exp)}<br>الصافي: ${fmtN(r.net)}`)}>${r.net<0?'<span class="neg-mark"></span>':''}<b>${d}</b><small class="n">${r.inc?(r.inc>=1000?(r.inc/1000).toFixed(1).replace(/\.0$/,'')+'k':r.inc):'0'}</small></div>`;
+  }
+  return h+`</div><div class="gr"><span>أقل</span><i></i><span>أعلى (${fmtN(mx)})</span></div>`;
+}
+function topCats(a,limit){
+  const arr=Object.entries(a.byCat).sort((x,y)=>y[1].t-x[1].t);if(!arr.length)return '<div class="muted">لا توجد مدفوعات</div>';
+  const mx=arr[0][1].t;
+  return `<div class="hb">${arr.slice(0,limit).map(([c,b])=>`<div class="hbr" data-act="cat" data-c="${c}"><div class="nm"><i class="dot" style="background:${catColor(c)}"></i> ${esc(CM[c]?.name||'؟')}</div><div class="tr"><div class="fl" style="width:${b.t/mx*100}%;background:${catColor(c)}"></div></div><div class="vl"><bdi class="n">${fmtN(b.t)}</bdi><div class="muted" style="font-size:11px;font-weight:500">${pctTxt(b.t/a.exp,1)}</div></div></div>`).join('')}</div>`;
+}
+function structure(a){
+  const arr=Object.entries(a.byCat).sort((x,y)=>y[1].t-x[1].t);if(!arr.length)return '<div class="muted">لا توجد مدفوعات</div>';
+  const top=arr.slice(0,6).map(([c,b])=>({id:c,name:CM[c]?.name||'؟',v:b.t,color:catColor(c)}));
+  const rest=sum(arr.slice(6).map(x=>x[1].t));if(rest>0)top.push({name:`أخرى (${arr.length-6})`,v:rest,color:'var(--muted)'});
+  return `<div class="flex" style="justify-content:center">${donut(top,176,fmtN(a.exp))}<div style="flex:1;min-width:170px;display:flex;flex-direction:column;gap:6px">${top.map(t=>`<div style="display:flex;align-items:center;gap:8px;font-size:13px"><i class="dot" style="background:${t.color}"></i><span style="flex:1">${esc(t.name)}</span><b>${pctTxt(t.v/a.exp,0)}</b></div>`).join('')}</div></div>`;
+}
+function weekdayChart(rs){
+  const ds=dowStats(rs);
+  return slot('wd'+rs.length,w=>groupedBars(w,{labels:WEEK_ORDER.map(d=>AR_D[d]),series:[{name:'متوسط الإيراد',color:'var(--c1)',vals:WEEK_ORDER.map(d=>ds[d].avgInc)},{name:'متوسط المدفوعات',color:'var(--c2)',vals:WEEK_ORDER.map(d=>ds[d].avgExp)}],tipExtra:i=>`<div style="opacity:.8;margin-top:3px">عدد الأيام: ${ds[WEEK_ORDER[i]].n}</div>`,h:230}),230);
+}
+function bestWorst(rs){
+  const best=[...rs].sort((x,y)=>y.inc-x.inc).slice(0,5),worst=[...rs].filter(r=>r.net<0).sort((x,y)=>x.net-y.net).slice(0,5);
+  const li=(r,v,cls)=>`<div class="hbr" style="grid-template-columns:1fr auto" data-act="edit" data-k="${r.k}"><div class="nm">${AR_D[r.dow]} ${dShort(r.k)}</div><div class="vl ${cls}">${N(v)}</div></div>`;
+  return `<div class="grid" style="gap:14px"><div class="c6"><div class="muted" style="font-size:12.5px;font-weight:700;margin-bottom:4px">${ic('up',14)} أعلى إيراد</div>${best.map(r=>li(r,r.inc,'pos')).join('')}</div><div class="c6"><div class="muted" style="font-size:12.5px;font-weight:700;margin-bottom:4px">${ic('down',14)} أكبر عجز يومي</div>${worst.length?worst.map(r=>li(r,r.net,'neg')).join(''):'<div class="muted" style="padding:6px">مفيش أيام عجز 🎉</div>'}</div></div>`;
+}
+function monthHighlights(pi){
+  const by={};pi.recs.forEach(r=>{(by[ymOf(r.k)]=by[ymOf(r.k)]||[]).push(r)});
+  const ms=Object.keys(by).sort().map(k=>({k,a:agg(by[k])})).filter(x=>x.a.n>=10);
+  if(ms.length<2)return `<h3>${ic('target')} أفضل الشهور</h3><div class="sub">محتاج شهرين كاملين على الأقل للمقارنة</div>`;
+  const bi=[...ms].sort((x,y)=>y.a.inc-x.a.inc),bn=[...ms].sort((x,y)=>y.a.net-x.a.net),lab=k=>AR_M[+k.slice(5)-1]+' '+k.slice(0,4);
+  const row=(t,x,v,c)=>`<div class="hbr" style="grid-template-columns:1fr auto;cursor:pointer" data-act="gomonth" data-y="${x.k.slice(0,4)}" data-m="${+x.k.slice(5)}"><div><div class="muted" style="font-size:11.5px">${t}</div><b>${lab(x.k)}</b></div><div class="vl ${c||''}">${N(v)}</div></div>`;
+  return `<h3>${ic('target')} أفضل وأضعف الشهور</h3><div class="sub">من ${ms.length} شهر مكتمل في ${esc(pi.label)}</div><div class="hb">${row('أعلى إيراد',bi[0],bi[0].a.inc)}${row('أقل إيراد',bi[bi.length-1],bi[bi.length-1].a.inc)}${row('أعلى صافي',bn[0],bn[0].a.net,'pos')}${row('أقل صافي',bn[bn.length-1],bn[bn.length-1].a.net,bn[bn.length-1].a.net<0?'neg':'')}<div class="note" style="margin-top:8px">متوسط الشهر: إيراد <b>${fmtN(mean(ms.map(x=>x.a.inc)))}</b> · صافي <b>${fmtN(mean(ms.map(x=>x.a.net)))}</b></div></div>`;
+}
+function targetCard(pi){
+  const t=+DB.settings.target||0,a=pi.a;
+  if(PER.mode!=='month')return monthHighlights(pi);
+  if(!t)return `<h3>${ic('target')} هدف الشهر</h3><div class="sub">حدد هدف إيراد شهري وهتابع نسبة التحقق تلقائيًا</div><div class="flex"><input class="inp" id="tgtIn" inputmode="numeric" placeholder="مثال: ${fmtN(Math.round(a.inc/1000)*1000||300000)}" style="direction:ltr;flex:1;min-width:120px"><button class="btn pri" data-act="settarget">حفظ</button></div>`;
+  const p=a.inc/t,n=dim(PER.y,PER.m),left=Math.max(0,n-(pi.recs.length?parseKey(pi.recs[pi.recs.length-1].k).getDate():0));
+  const need=p<1&&left?Math.ceil((t-a.inc)/left):0;
+  return `<h3>${ic('target')} هدف ${AR_M[PER.m-1]}</h3><div class="sub">الهدف ${M(t)} <a href="#" data-act="settarget2" style="color:var(--brand)">تعديل</a></div><div class="flex">${ring(p,p>=1?'var(--good)':'var(--c1)',pctTxt(p,0),'من الهدف')}<div style="flex:1;min-width:130px;font-size:13px;color:var(--ink2)">${p>=1?`<b class="pos">حققت الهدف 🎉</b><br>وزيادة ${M(a.inc-t)}`:left?`فاضل ${M(t-a.inc)}<br>يعني محتاج <b>${M(need)}</b> في اليوم لباقي الشهر (${left} يوم).`:`الشهر خلص وفاضل ${M(t-a.inc)} على الهدف.`}</div></div>`;
+}
+
+/* ---------- اليومية ---------- */
+function ledgerRows(pi){
+  let rows=[];
+  if(PER.mode==='month'&&S.ledF==='all'){const n=dim(PER.y,PER.m);for(let d=1;d<=n;d++){const k=`${PER.y}-${pad(PER.m)}-${pad(d)}`;rows.push(RM[k]||{k,none:1})}}
+  else rows=pi.recs;
+  const q=norm(S.ledQ);
+  rows=rows.filter(r=>{
+    if(S.ledF==='neg'&&!(r.net<0))return false;if(S.ledF==='zero'&&!(r.inc===0&&!r.none&&r.exp===0)&&!(r.inc===0&&!r.none))return false;
+    if(q&&!r.none){const t=norm(dLong(r.k)+' '+(r.note||'')+' '+Object.keys(r.e).map(c=>CM[c]?.name).join(' '));if(!t.includes(q))return false}else if(q&&r.none)return false;
+    return true});
+  if(!rows.length)return `<tr><td colspan="7" class="muted" style="text-align:center;padding:26px">مفيش نتائج</td></tr>`;
+  return rows.map(r=>{
+    if(r.none)return `<tr class="clk off" data-act="edit" data-k="${r.k}"><td>${AR_D[parseKey(r.k).getDay()]} ${dShort(r.k)}</td><td colspan="5" style="text-align:start">غير مسجل — اضغط للتسجيل</td><td></td></tr>`;
+    const top=Object.entries(r.e).sort((x,y)=>y[1]-x[1])[0];
+    return `<tr class="clk" data-act="edit" data-k="${r.k}"><td>${AR_D[r.dow]} ${dShort(r.k)}${r.note?` <span class="muted" title="${esc(r.note)}">${ic('info',13)}</span>`:''}</td><td>${N(r.inc)}</td><td>${N(r.exp)}</td><td class="${r.net>=0?'pos':'neg'}" style="font-weight:700">${N(r.net)}</td><td>${r.inc?`<span class="mini"><i style="width:${Math.max(0,Math.min(100,r.net/r.inc*100))}%;background:var(--c3)"></i></span> <bdi class="n" style="font-size:12px">${(r.net/r.inc*100).toFixed(0)}%</bdi>`:'<span class="muted">—</span>'}</td><td style="text-align:start" class="ink2">${top?esc(CM[top[0]]?.name||'')+' · <bdi class="n">'+fmtN(top[1])+'</bdi>'+(Object.keys(r.e).length>1?` <span class="muted">+${Object.keys(r.e).length-1}</span>`:''):'<span class="muted">—</span>'}</td><td style="width:1%">${ic('edit',15)}</td></tr>`}).join('');
+}
+function ledger(pi){
+  const a=pi.a;
+  const f=[['all','الكل'],['neg','أيام العجز'],['zero','بدون مبيعات']];
+  return `<div class="flex noprint" style="margin-bottom:14px"><div class="seg">${f.map(([k,t])=>`<button class="${S.ledF===k?'on':''}" data-act="ledf" data-f="${k}">${t}</button>`).join('')}</div><input class="inp" id="ledQ" placeholder="ابحث باسم شركة أو ملاحظة…" value="${esc(S.ledQ)}" style="flex:1;min-width:200px;max-width:340px"><span class="muted" style="margin-inline-start:auto">${a.n} يوم مسجل · صافي <b class="${a.net>=0?'pos':'neg'}">${N(a.net)}</b></span></div>
+  <div class="tw"><table class="t"><thead><tr><th>اليوم</th><th>الإيراد</th><th>المدفوعات</th><th>الصافي</th><th>الهامش</th><th style="text-align:start">أكبر دفعة</th><th></th></tr></thead><tbody id="ledBody">${ledgerRows(pi)}</tbody>
+  <tfoot><tr><td>الإجمالي</td><td>${N(a.inc)}</td><td>${N(a.exp)}</td><td class="${a.net>=0?'pos':'neg'}">${N(a.net)}</td><td>${P(a.margin,0)}</td><td></td><td></td></tr></tfoot></table></div>`;
+}
+
+/* ---------- جدول الشركات (مصفوفة) ---------- */
+function matrixPeriod(){
+  if(PER.mode==='month')return PER;
+  const l=RECS.length?parseKey(RECS[RECS.length-1].k):new Date();return {mode:'month',y:l.getFullYear(),m:l.getMonth()+1};
+}
+function matrix(){
+  const mp=matrixPeriod(),pi=periodInfo(mp),a=pi.a,n=dim(mp.y,mp.m);
+  if(!pi.recs.length&&!S.mxAll)return empty('مفيش بيانات في الشهر ده','سجّل أول يوم أو بدّل الشهر.',`<button class="btn pri" data-act="new">${ic('plus')} تسجيل يوم</button>`);
+  const cats=DB.cats.filter(c=>S.mxAll?c.on:(a.byCat[c.id]||0)).sort((x,y)=>(x.type===y.type?0:x.type==='sup'?-1:1)||((a.byCat[y.id]?.t||0)-(a.byCat[x.id]?.t||0)));
+  const vals=Object.values(a.byCat).flatMap(b=>b.list.map(x=>x[1])).sort((x,y)=>x-y),p90=vals[Math.floor(vals.length*.9)]||1;
+  const head=`<tr><th>اليوم</th><th>الإيراد</th>${cats.map(c=>`<th data-act="cat" data-c="${c.id}" style="cursor:pointer;${c.type==='op'?'color:var(--c4)':''}">${esc(c.name)}</th>`).join('')}<th>إجمالي المدفوعات</th><th>الصافي</th></tr>`;
+  let body='';
+  for(let d=1;d<=n;d++){
+    const k=`${mp.y}-${pad(mp.m)}-${pad(d)}`,r=RM[k];
+    body+=`<tr${r?'':' class="off"'}><td>${AR_D[new Date(mp.y,mp.m-1,d).getDay()]} ${d}</td><td class="cell" data-k="${k}" data-c="__inc">${r?N(r.inc):''}</td>${cats.map(c=>{const v=r?.e[c.id]||0;return `<td class="cell" data-k="${k}" data-c="${c.id}"${v?` style="background:color-mix(in srgb,var(--c2) ${Math.round(8+42*Math.min(1,v/p90))}%,transparent)"`:''}>${v?N(v):''}</td>`}).join('')}<td>${r?N(r.exp):''}</td><td class="${r&&r.net<0?'neg':'pos'}">${r?N(r.net):''}</td></tr>`}
+  const foot=`<tr><td>الإجمالي</td><td>${N(a.inc)}</td>${cats.map(c=>`<td>${N(a.byCat[c.id]?.t||0)}</td>`).join('')}<td>${N(a.exp)}</td><td class="${a.net>=0?'pos':'neg'}">${N(a.net)}</td></tr>`;
+  const share=`<tr><td style="font-weight:600">النسبة من المدفوعات</td><td></td>${cats.map(c=>`<td style="font-weight:600">${a.exp?pctTxt((a.byCat[c.id]?.t||0)/a.exp,1):''}</td>`).join('')}<td>100%</td><td></td></tr>`;
+  return `<div class="flex noprint" style="margin-bottom:12px"><span class="ink2">${PER.mode!=='month'?`عرض ${mLabel(mp.y,mp.m)} — `:''}اضغط على أي خانة واكتب الرقم مباشرة (Enter لتنزل، Tab للخانة اللي بعدها). اضغط اسم الشركة لتفاصيلها.</span><label style="margin-inline-start:auto;display:flex;gap:6px;align-items:center;cursor:pointer"><input type="checkbox" data-act="mxall" ${S.mxAll?'checked':''}> إظهار كل الشركات</label></div>
+  <div class="tw"><table class="t" id="mx"><thead>${head}</thead><tbody>${body}</tbody><tfoot>${foot}${share}</tfoot></table></div>`;
+}
+
+/* ---------- الموردين ---------- */
+function suppliers(pi){
+  const a=pi.a,ref=refDate();
+  let cats=DB.cats.filter(c=>(c.on||a.byCat[c.id]));
+  if(S.supT!=='all')cats=cats.filter(c=>c.type===S.supT);
+  const q=norm(S.supQ);if(q)cats=cats.filter(c=>norm(c.name).includes(q));
+  const info=cats.map(c=>{const b=a.byCat[c.id]||{t:0,n:0,list:[]},rh=payRhythm(c.id);return {c,b,rh,since:rh.last?diffDays(rh.last,ref):null}});
+  const sorters={total:(x,y)=>y.b.t-x.b.t,recent:(x,y)=>(x.since??1e9)-(y.since??1e9),count:(x,y)=>y.b.n-x.b.n,name:(x,y)=>x.c.name.localeCompare(y.c.name,'ar')};
+  info.sort(sorters[S.supSort]);
+  const late=info.filter(x=>x.c.type==='sup'&&x.rh.gap&&x.rh.n>=3&&x.since>x.rh.gap*DB.settings.overdue);
+  let h=`<div class="flex noprint" style="margin-bottom:14px"><div class="seg">${[['all','الكل'],['sup','شركات وموردين'],['op','مصروفات تشغيل']].map(([k,t])=>`<button class="${S.supT===k?'on':''}" data-act="supt" data-t="${k}">${t}</button>`).join('')}</div>
+   <input class="inp" id="supQ" placeholder="ابحث عن شركة…" value="${esc(S.supQ)}" style="flex:1;min-width:160px;max-width:280px">
+   <select class="sel" data-act="supsort">${[['total','الأعلى دفعًا'],['recent','الأحدث دفعًا'],['count','الأكثر تعاملًا'],['name','الاسم']].map(([k,t])=>`<option value="${k}"${S.supSort===k?' selected':''}>ترتيب: ${t}</option>`).join('')}</select>
+   <button class="btn" data-act="addcat" style="margin-inline-start:auto">${ic('plus')} شركة / بند جديد</button></div>`;
+  if(late.length)h+=`<div class="banner" style="background:color-mix(in srgb,var(--warn) 10%,transparent);border-color:color-mix(in srgb,var(--warn) 40%,transparent)">${ic('warn')}<div><b>${late.length} شركة</b> عدّى ميعاد دفعها المعتاد: ${late.slice(0,5).map(x=>esc(x.c.name)).join('، ')}</div></div>`;
+  h+=`<div class="sgrid" id="sgrid">${info.map(x=>supCard(x,a,pi)).join('')||'<div class="muted">لا نتائج</div>'}</div>`;
+  return h;
+}
+function supCard(x,a,pi){
+  const {c,b,rh,since}=x,inPer=b.t>0,late=c.type==='sup'&&rh.gap&&rh.n>=3&&since>rh.gap*DB.settings.overdue;
+  const ser=pi.recs.map(r=>r.e[c.id]||0);
+  return `<div class="card sc" data-act="cat" data-c="${c.id}"><div class="row"><b><i class="dot" style="background:${catColor(c.id)}"></i> ${esc(c.name)}</b>${c.type==='op'?'<span class="pill">تشغيل</span>':late?'<span class="pill warn">متأخر؟</span>':!c.on?'<span class="pill">مؤرشف</span>':''}</div>
+   <div class="tot">${M(b.t)}</div><div class="row"><span class="muted" style="font-size:12px">${a.exp&&b.t?pctTxt(b.t/a.exp,1)+' من المدفوعات':'لا مدفوعات في الفترة'}</span>${inPer?spark(ser,catColor(c.id),70,24):''}</div>
+   <div class="meta"><span>عدد الدفعات: <b>${b.n}</b></span><span>متوسط الدفعة: <b>${b.n?fmtN(b.t/b.n):'—'}</b></span><span>آخر دفعة: <b>${rh.last?dShort(rh.last):'—'}</b></span><span>${rh.next&&c.type==='sup'?`المتوقعة: <b>${dShort(rh.next)}</b>`:'&nbsp;'}</span></div></div>`;
+}
+function openCat(id){
+  const c=CM[id];if(!c)return;const all=agg(RECS),b=all.byCat[id]||{t:0,n:0,list:[]},rh=payRhythm(id),pi=periodInfo(),bp=pi.a.byCat[id]||{t:0,n:0};
+  const by={};b.list.forEach(([k,v])=>{by[ymOf(k)]=(by[ymOf(k)]||0)+v});const mk=Object.keys(by).sort();
+  const rows=[...b.list].reverse().map(([k,v],i,arr)=>{const prev=arr[i+1];return `<tr class="clk" data-act="edit" data-k="${k}"><td>${dLong(k)}</td><td>${N(v)}</td><td class="muted">${prev?'بعد '+diffDays(prev[0],k)+' يوم':'—'}</td></tr>`}).join('');
+  openModal(`<div class="modal wide"><div class="mh"><h2><i class="dot" style="background:${catColor(id)}"></i> ${esc(c.name)}</h2><button class="btn iconbtn ghost" data-act="close">${ic('x')}</button></div><div class="mb">
+   <div class="sumbar"><div><small>إجمالي كل الفترة</small><b>${M(b.t)}</b></div><div><small>في ${esc(pi.label)}</small><b>${M(bp.t)}</b></div><div><small>عدد الدفعات</small><b>${b.n}</b></div></div>
+   ${rh.gap?`<div class="note">${ic('clock',14)} بتاخد دفعة كل <b>${Math.round(rh.gap)}</b> يوم تقريبًا، بمتوسط <b>${fmtN(rh.typ)}</b> — الدفعة الجاية المتوقعة <b>${dLong(rh.next)}</b>${diffDays(rh.last,refDate())>rh.gap*DB.settings.overdue?' <b class="neg">(متأخرة)</b>':''}.</div>`:`<div class="note">محتاج دفعتين على الأقل عشان أتوقع الدفعة الجاية.</div>`}
+   ${mk.length>1?`<div><div class="muted" style="font-weight:700;margin-bottom:4px">الدفع شهريًا</div>${slot('catm',w=>groupedBars(w,{labels:mk.map(k=>AR_M[+k.slice(5)-1]),series:[{name:c.name,color:catColor(id),vals:mk.map(k=>by[k])}],h:190}),190)}</div>`:''}
+   <div class="fld"><label>الاسم</label><input class="inp" id="catName" value="${esc(c.name)}"></div>
+   <div class="fld"><label>دمج في شركة تانية (لو الاسم اتغير أو اتكرر)</label><div class="flex" style="flex-wrap:nowrap"><select class="sel" id="mergeTo" style="flex:1"><option value="">اختار الشركة الأساسية…</option>${DB.cats.filter(x=>x.id!==id).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button class="btn" data-act="mergecat" data-c="${id}">دمج</button></div></div>
+   <div class="flex"><div class="fld" style="flex:1"><label>النوع</label><select class="sel" id="catType" style="width:100%"><option value="sup"${c.type==='sup'?' selected':''}>شركة / مورد</option><option value="op"${c.type==='op'?' selected':''}>مصروف تشغيل</option></select></div><label style="display:flex;gap:6px;align-items:center;cursor:pointer;margin-top:18px"><input type="checkbox" id="catOn" ${c.on?'checked':''}> ظاهر في التسجيل</label></div>
+   ${b.list.length?`<div class="tw" style="max-height:260px"><table class="t"><thead><tr><th>التاريخ</th><th>المبلغ</th><th>المدة من اللي قبلها</th></tr></thead><tbody>${rows}</tbody></table></div>`:''}
+  </div><div class="mf"><button class="btn pri" data-act="savecat" data-c="${id}">${ic('save')} حفظ التعديلات</button><button class="btn dng" data-act="delcat" data-c="${id}" style="margin-inline-start:auto">${ic('trash')} ${b.n?'أرشفة':'حذف'}</button></div></div>`);
+  drawCharts();
+}
+
+/* ---------- التحليل الذكي ---------- */
+function insights(pi){
+  if(!pi.recs.length)return empty('مفيش بيانات كفاية للتحليل','اختار فترة فيها بيانات.');
+  const ins=buildInsights(pi),a=pi.a,ref=refDate();
+  let h=`<div class="grid"><div class="card c7"><h3>${ic('bulb')} الملاحظات الذكية — ${esc(pi.label)}</h3><div class="sub">بتتحدث أوتوماتيك مع كل رقم بتسجله</div><div class="ins">${ins.map(insHtml).join('')}</div></div>`;
+  // توقع: باقي الشهر (لو ناقص) + الشهر الجاي كامل
+  const last=RECS[RECS.length-1].k,ld=parseKey(last),eom=key(new Date(ld.getFullYear(),ld.getMonth()+1,0));
+  const ny=ld.getMonth()===11?ld.getFullYear()+1:ld.getFullYear(),nm=(ld.getMonth()+1)%12+1;
+  const fcs=[];
+  if(last<eom)fcs.push([`باقي ${AR_M[ld.getMonth()]} (${diffDays(last,eom)} يوم)`,forecastRange(addDays(last,1),eom)]);
+  fcs.push([mLabel(ny,nm),forecastRange(`${ny}-${pad(nm)}-01`,`${ny}-${pad(nm)}-${pad(dim(ny,nm))}`)]);
+  const fcBlock=([lbl,fs])=>{
+    if(!fs)return `<div class="sub">محتاج على الأقل أسبوع بيانات عشان أتوقع.</div>`;
+    return `<div style="font-weight:700;margin:10px 0 6px">${esc(lbl)}</div><div class="sumbar" style="grid-template-columns:1fr 1fr 1fr"><div><small>الإيراد</small><b>${fmtN(fs.inc)}</b><small><bdi class="n">${fmtN(fs.incLo)} – ${fmtN(fs.incHi)}</bdi></small></div><div><small>المدفوعات</small><b>${fmtN(fs.exp)}</b><small>بنسبة ${pctTxt(fs.ratio,0)}</small></div><div><small>الصافي</small><b class="${fs.net>=0?'pos':'neg'}">${fmtN(fs.net)}</b><small><bdi class="n">${fmtN(fs.netLo)} – ${fmtN(fs.netHi)}</bdi></small></div></div>${fs.seasUsed?`<div class="note" style="margin-top:8px">${ic('cal',14)} معدّل بموسمية السنة اللي فاتت (نفس الفترة كانت ${fs.seas>=1?'أقوى':'أضعف'} بمعامل ×${fs.seas.toFixed(2)}).</div>`:''}`};
+  const fs0=fcs[fcs.length-1][1];
+  h+=`<div class="card c5"><h3>${ic('up')} التوقعات</h3><div class="sub">بناءً على متوسط آخر 60 يوم مسجل مع مراعاة قوة كل يوم في الأسبوع، ونطاق محتمل 80%</div>${fcs.map(fcBlock).join('')}${fs0?`<div class="note" style="margin-top:10px"><b>درجة الثقة: ${fs0.conf.txt}</b> — ${fs0.conf.why}. ${fs0.conf.lvl<2?'التوقع مبدئي وهيبقى أدق كل ما تسجل شهور أكتر (خصوصًا لو فيه موسمية زي مواسم الدواجن).':''}</div>`:''}</div>`;
+  // دفعات متوقعة
+  const up=DB.cats.filter(c=>c.on&&c.type==='sup').map(c=>({c,r:payRhythm(c.id)})).filter(x=>x.r.next&&x.r.n>=2).sort((x,y)=>x.r.next.localeCompare(y.r.next));
+  const win=up.filter(x=>diffDays(ref,x.r.next)<=14),tot=sum(win.map(x=>x.r.typ));
+  h+=`<div class="card c7"><h3>${ic('clock')} الدفعات المتوقعة للشركات</h3><div class="sub">من إيقاع دفعك السابق لكل شركة (المرجع: آخر يوم مسجل ${dShort(ref)}) — ${win.length?`أول 14 يوم متوقع <b>${fmtN(tot)} ${cur()}</b> تقريبًا`:'مفيش دفعات متوقعة قريب'}</div>
+   <div class="tw" style="max-height:340px"><table class="t"><thead><tr><th>الشركة</th><th>آخر دفعة</th><th>كل كام يوم</th><th>المتوقعة</th><th>المبلغ المعتاد</th></tr></thead><tbody>${up.map(x=>{const od=diffDays(x.r.last,ref)>x.r.gap*DB.settings.overdue&&x.r.n>=3;return `<tr class="clk" data-act="cat" data-c="${x.c.id}"><td>${esc(x.c.name)} ${od?'<span class="pill warn">متأخر</span>':''}</td><td>${dShort(x.r.last)}</td><td>${Math.round(x.r.gap)}</td><td>${dShort(x.r.next)}</td><td>${N(x.r.typ)}</td></tr>`}).join('')||'<tr><td colspan="5" class="muted" style="text-align:center;padding:20px">لسه محتاج دفعتين لكل شركة</td></tr>'}</tbody></table></div></div>`;
+  // محاكي
+  h+=`<div class="card c5" id="simCard">${simHtml(pi)}</div>`;
+  // ايام الأسبوع
+  h+=`<div class="card c6"><h3>نمط الأسبوع</h3><div class="sub">أي يوم بيجيب أكتر؟ (متوسط الإيراد لكل يوم)</div>${weekdayChart(pi.recs)}</div>`;
+  const rs=pi.recs.filter(r=>r.inc>0);const buckets=[[0,.5],[.5,.8],[.8,1.2],[1.2,1.6],[1.6,99]];
+  const lbl=['ضعيف جدًا','أقل من المعتاد','معتاد','أعلى من المعتاد','قوي جدًا'];
+  const cnt=buckets.map(([lo,hi])=>rs.filter(r=>r.inc/a.avgInc>=lo&&r.inc/a.avgInc<hi).length);
+  h+=`<div class="card c6"><h3>توزيع الأيام حسب قوة البيع</h3><div class="sub">مقارنة بمتوسط اليوم (${fmtN(a.avgInc)} ${cur()})</div><div class="hb">${buckets.map((b,i)=>`<div class="hbr" style="cursor:default;grid-template-columns:110px 1fr 40px"><div class="nm">${lbl[i]}</div><div class="tr"><div class="fl" style="width:${cnt[i]/Math.max(1,...cnt)*100}%;background:var(--c1)"></div></div><div class="vl">${cnt[i]}</div></div>`).join('')}</div></div>`;
+  // موسمية شهرية عبر كل البيانات
+  const bm={};RECS.forEach(r=>{const m=+r.k.slice(5,7),ym=ymOf(r.k);(bm[m]=bm[m]||{})[ym]=(bm[m][ym]||[]).concat(r)});
+  const ms=Object.keys(bm).map(Number).sort((x,y)=>x-y).filter(m=>Object.values(bm[m]).some(a=>a.length>=10));
+  if(ms.length>=6){
+    const vals=ms.map(m=>{const ar=Object.values(bm[m]).filter(a=>a.length>=10).map(a=>mean(a.map(r=>r.inc)));return mean(ar)});
+    const ns=ms.map(m=>Object.values(bm[m]).filter(a=>a.length>=10).length);
+    h+=`<div class="card c12"><h3>${ic('cal')} الموسمية: متوسط البيع اليومي حسب شهور السنة</h3><div class="sub">متوسط كل شهر عبر كل السنين المسجلة — بيوضح شهورك القوية والضعيفة${ms.length<12?' (لسه ناقص شهور)':''}</div>${slot('seas',w=>groupedBars(w,{labels:ms.map(m=>AR_M[m-1]),series:[{name:'متوسط البيع اليومي',color:'var(--c1)',vals}],tipExtra:i=>`<div style="opacity:.8;margin-top:3px">مبني على ${ns[i]} ${ns[i]>1?'سنين/مرات':'سنة'}</div>`,h:230}),230)}</div>`;
+  }
+  return h+`</div>`;
+}
+function simOut(pi){
+  const a=pi.a,s=S.sim,inc=a.inc*(1+s.i/100),sup=a.sup*(1+s.s/100),op=a.op*(1+s.o/100),net=inc-sup-op,d=net-a.net;
+  return `<div class="sumbar" style="margin-top:14px;grid-template-columns:1fr 1fr"><div><small>الصافي الجديد</small><b class="${net>=0?'pos':'neg'}">${M(net)}</b></div><div><small>الفرق عن الفعلي</small><b class="${d>=0?'pos':'neg'}">${d>0?'+':''}${M(d)}</b></div></div>
+  <div class="note" style="margin-top:10px">الهامش يبقى <b>${pctTxt(inc?net/inc:0,1)}</b> بدل ${pctTxt(a.margin,1)}. ${s.i||s.s||s.o?`<a href="#" data-act="simreset" style="color:var(--brand)">إعادة ضبط</a>`:''}</div>`;
+}
+function simHtml(pi){
+  const s=S.sim;
+  const sl=(k,lbl,mn,mx)=>`<div><div class="r"><span>${lbl}</span><b class="n" data-lbl="${k}">${s[k]>0?'+':''}${s[k]}%</b></div><input class="sl" type="range" min="${mn}" max="${mx}" step="1" value="${s[k]}" data-act="sim" data-k="${k}"></div>`;
+  return `<h3>${ic('zap')} جرّب "لو…"</h3><div class="sub">حرّك المؤشرات وشوف الأثر على ${esc(pi.label)}</div><div style="display:flex;flex-direction:column;gap:12px">${sl('i','لو المبيعات اتغيرت',-30,50)}${sl('s','لو مدفوعات الشركات اتغيرت',-30,30)}${sl('o','لو مصروفات التشغيل اتغيرت',-30,30)}</div><div id="simOut">${simOut(pi)}</div>`;
+}
+
+/* ---------- التقارير ---------- */
+function reports(pi){
+  if(!pi.recs.length)return empty('اختار فترة فيها بيانات','التقرير بيتكوّن من بيانات الفترة المختارة.');
+  const a=pi.a,ins=buildInsights(pi).slice(0,5);
+  const cats=Object.entries(a.byCat).sort((x,y)=>y[1].t-x[1].t);
+  return `<div class="flex noprint" style="margin-bottom:14px"><button class="btn pri" data-act="print">${ic('print')} طباعة / حفظ PDF</button><button class="btn" data-act="xlsx" data-s="period">${ic('dl')} إكسل للفترة دي</button><button class="btn" data-act="xlsx" data-s="all">${ic('dl')} إكسل بكل البيانات</button></div>
+  <div class="card rep"><div class="flex" style="justify-content:space-between"><div><h2>تقرير المبيعات — ${esc(pi.label)}</h2><div class="muted">${esc(DB.settings.shop)} · صدر بتاريخ ${dLong(todayKey())}</div></div><div class="logo" style="width:46px;height:46px"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div></div><hr class="h">
+  <div class="sumbar" style="grid-template-columns:repeat(4,1fr)"><div><small>الإيراد</small><b>${N(a.inc)}</b></div><div><small>المدفوعات</small><b>${N(a.exp)}</b></div><div><small>الصافي</small><b class="${a.net>=0?'pos':'neg'}">${N(a.net)}</b></div><div><small>الهامش</small><b>${P(a.margin)}</b></div></div>
+  <p class="ink2" style="margin-top:10px">${a.n} يوم مسجل · متوسط الإيراد اليومي ${M(a.avgInc)} · متوسط المدفوعات اليومي ${M(a.avgExp)}</p><hr class="h">
+  ${PER.mode==='month'?`<h3>الإيراد والمدفوعات اليومية</h3>${mainLineStatic(pi)}<hr class="h">`:''}
+  <h3>المدفوعات حسب الشركة</h3><table class="t" style="margin:8px 0"><thead><tr><th>الشركة / البند</th><th>الإجمالي</th><th>النسبة</th><th>عدد الدفعات</th></tr></thead><tbody>${cats.map(([c,b])=>`<tr><td>${esc(CM[c]?.name||'')}</td><td>${N(b.t)}</td><td>${P(b.t/a.exp)}</td><td>${b.n}</td></tr>`).join('')}</tbody><tfoot><tr><td>الإجمالي</td><td>${N(a.exp)}</td><td>100%</td><td></td></tr></tfoot></table><hr class="h">
+  <h3>ملاحظات</h3><div class="ins" style="margin-top:8px">${ins.map(insHtml).join('')}</div></div>`;
+}
+function mainLineStatic(pi){
+  const {y,m}=PER,n=dim(y,m),xs=[];for(let d=1;d<=n;d++)xs.push(`${y}-${pad(m)}-${pad(d)}`);
+  return `<div class="legend"><span><i class="dot" style="background:var(--c1)"></i>الإيراد</span><span><i class="dot" style="background:var(--c2)"></i>المدفوعات</span></div>`+slot('rep',w=>lineChart(w,{xs,xLabel:k=>String(+k.slice(8)),h:240,series:[{name:'الإيراد',color:'var(--c1)',vals:xs.map(k=>RM[k]?RM[k].inc:null),area:1},{name:'المدفوعات',color:'var(--c2)',vals:xs.map(k=>RM[k]?RM[k].exp:null)}]}),240);
+}
+
+/* ---------- الإعدادات والبيانات ---------- */
+function settings(){
+  const s=DB.settings,size=(JSON.stringify(DB).length/1024).toFixed(0);
+  const catRows=DB.cats.map(c=>`<tr class="clk${c.on?'':' off'}" data-act="cat" data-c="${c.id}"><td><i class="dot" style="background:${catColor(c.id)}"></i> ${esc(c.name)}</td><td>${c.type==='op'?'مصروف تشغيل':'شركة / مورد'}</td><td>${c.on?'ظاهر':'مؤرشف'}</td></tr>`).join('');
+  return `<div class="grid"><div class="card c6"><h3>الإعدادات العامة</h3><div class="sub">&nbsp;</div>
+   <div style="display:flex;flex-direction:column;gap:14px">
+   <div class="fld"><label>اسم النشاط</label><input class="inp" id="setShop" value="${esc(s.shop)}"></div>
+   <div class="flex"><div class="fld" style="flex:1"><label>العملة</label><input class="inp" id="setCur" value="${esc(s.cur)}"></div><div class="fld" style="flex:1"><label>هدف الإيراد الشهري</label><input class="inp" id="setTgt" inputmode="numeric" value="${s.target||''}" placeholder="اختياري" style="direction:ltr"></div></div>
+   <div class="fld"><label>تنبيه تأخر الشركات: لما تعدي ميعادها المعتاد بـ</label><select class="sel" id="setOver" style="width:100%">${[1.25,1.5,2,3].map(v=>`<option value="${v}"${+s.overdue===v?' selected':''}>${v}× المدة المعتادة</option>`).join('')}</select></div>
+   <div class="fld"><label>الشكل</label><div class="seg">${[['auto','تلقائي'],['light','فاتح'],['dark','ليلي']].map(([k,t])=>`<button class="${s.theme===k?'on':''}" data-act="settheme" data-t="${k}">${t}</button>`).join('')}</div></div>
+   <div><button class="btn pri" data-act="savesettings">${ic('save')} حفظ الإعدادات</button></div></div></div>
+  <div class="card c6"><h3>البيانات والنسخ الاحتياطي</h3><div class="sub">${RECS.length} يوم مسجل · ${DB.cats.length} شركة/بند · حجم البيانات ${size} ك.ب</div>
+   <div class="note warn" style="margin-bottom:12px">${ic('warn',14)} البيانات محفوظة في المتصفح على الجهاز ده. لو مسحت بيانات المتصفح أو نقلت الملف لمكان تاني ممكن تضيع — خد نسخة احتياطية بشكل دوري (بيظهرلك تنبيه بعد 7 أيام).</div>
+   <div style="display:flex;flex-direction:column;gap:9px">
+   <button class="btn" data-act="backup">${ic('save')} نسخة احتياطية (ملف JSON)</button>
+   <button class="btn" data-act="restore">${ic('ul')} استرجاع من نسخة احتياطية</button>
+   <button class="btn" data-act="import">${ic('ul')} استيراد من ملف إكسل بنفس شكل ملفك (Sales + companies)</button>
+   <button class="btn" data-act="xlsx" data-s="all">${ic('dl')} تصدير كل البيانات إلى إكسل</button>
+   <hr class="h" style="margin:4px 0"><button class="btn dng" data-act="reseed">استرجاع بيانات ملف sales2026 الأصلية</button><button class="btn dng" data-act="wipe">${ic('trash')} مسح كل البيانات والبدء من صفر</button></div></div>
+  <div class="card c12"><h3>${ic('save')} الحفظ والأمان</h3><div class="sub">3 طبقات حماية: حفظ فوري في المتصفح ← نسخة تلقائية يومية (تفضل 3 أسابيع) ← ملف على جهازك بيتحدث مع كل تعديل</div>
+   <div class="grid"><div class="c6"><b>الحفظ التلقائي في ملف</b><div class="muted" style="margin:4px 0 10px;font-size:13px">${FS.ok?(FS.state==='on'?`شغال — الملف: <b>${esc(FS.name)}</b>. أي تعديل بيتكتب فيه فورًا، فحتى لو المتصفح اتمسح بياناتك في الملف.`:FS.state==='perm'?'الملف موجود لكن المتصفح محتاج إذنك من جديد بعد إعادة التشغيل.':'اختار مكان الملف مرة واحدة (مثلًا في Documents أو على Google Drive) والبرنامج هيحدثه لوحده.'):'المتصفح ده مش بيدعم الحفظ في ملف. استخدم Chrome أو Edge على الكمبيوتر.'}</div>
+    ${FS.ok?(FS.state==='on'?`<button class="btn" data-act="fsunlink">إيقاف الحفظ في الملف</button>`:FS.state==='perm'?`<button class="btn pri" data-act="fsperm">تفعيل</button>`:`<button class="btn pri" data-act="fslink">${ic('save')} اختيار ملف الحفظ</button>`):''}
+    <hr class="h"><button class="btn" data-act="health">${ic('check')} فحص سلامة البيانات</button> <div class="muted" id="persistInfo" style="font-size:12.5px;margin-top:8px"></div></div>
+   <div class="c6"><b>نسخ تلقائية داخل البرنامج</b><div id="snapList" class="muted" style="margin-top:8px">جاري التحميل…</div></div></div></div>
+  <div class="card c12"><div class="hd"><div><h3>الشركات والبنود</h3><div class="sub">اضغط على أي واحدة لتعديل الاسم أو النوع أو أرشفتها</div></div><button class="btn" data-act="addcat">${ic('plus')} إضافة</button></div><div class="tw" style="max-height:340px"><table class="t"><thead><tr><th>الاسم</th><th>النوع</th><th>الحالة</th></tr></thead><tbody>${catRows}</tbody></table></div></div></div>`;
+}
+const PAGES={dash,ledger,matrix,suppliers,insights,reports,settings};
+
+/* ====================== واجهة التفاعل ====================== */
+function toast(msg,undoable){
+  const box=$('#toasts'),t=document.createElement('div');t.className='toast';
+  t.innerHTML=`<span>${msg}</span>${undoable?'<button data-act="undo">تراجع</button>':''}`;box.appendChild(t);
+  setTimeout(()=>t.remove(),undoable?6000:3600);
+}
+function openModal(html){closeModal(true);const d=document.createElement('div');d.className='modal-bg';d.id='mbg';d.innerHTML=html;document.body.appendChild(d);
+  d.addEventListener('mousedown',e=>{if(e.target===d)closeModal()});}
+function closeModal(silent){const m=$('#mbg');if(m)m.remove();ED=null;if(!silent)TIP&&TIP.classList.remove('on')}
+function download(name,blob){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+function pickFile(accept,cb){const i=document.createElement('input');i.type='file';i.accept=accept;i.onchange=()=>i.files[0]&&cb(i.files[0]);i.click()}
+
+/* ---------- نافذة تسجيل اليوم ---------- */
+let ED=null;
+const nextDayKey=()=>RECS.length?addDays(RECS[RECS.length-1].k,1):todayKey();
+function usageCount(){const u={};RECS.forEach(r=>{for(const c in r.e)u[c]=(u[c]||0)+1});return u}
+function openEditor(k){
+  k=k||nextDayKey();const ex=DB.days[k];
+  ED={k,inc:ex&&ex.i?String(ex.i):'',rows:ex?Object.entries(ex.e).map(([c,v])=>({c,v:String(v)})):[],note:ex?.n||'',q:'',isNew:!ex};
+  {const e=ED;openModal(edHtml());ED=e}setTimeout(()=>{const i=$('#edInc');i&&(i.focus(),i.select())},60);edRefresh();
+}
+function edHtml(){
+  const k=ED.k,d=parseKey(k);
+  return `<div class="modal"><div class="mh"><h2>${ED.isNew?'تسجيل يوم':'تعديل يوم'}</h2><button class="btn iconbtn ghost" data-act="close">${ic('x')}</button></div>
+  <div class="mb"><div class="flex"><button class="btn iconbtn" data-act="edday" data-d="-1">${ic('chr')}</button><input type="date" class="inp" id="edDate" value="${k}" style="font-weight:700"><button class="btn iconbtn" data-act="edday" data-d="1">${ic('chl')}</button><b id="edDow" class="ink2">${AR_D[d.getDay()]}</b>${ED.isNew?'':'<span class="pill">مسجل</span>'}</div>
+  <div class="fld"><label>إيراد اليوم (إجمالي المبيعات)</label><input class="inp big" id="edInc" inputmode="decimal" placeholder="0" value="${esc(ED.inc)}" autocomplete="off"></div>
+  <div class="fld"><label>المدفوعات — اختار الشركة أو البند واكتب المبلغ</label><input class="inp" id="edQ" placeholder="اكتب اسم شركة واضغط Enter…" autocomplete="off"><div class="chips" id="edChips" style="margin-top:10px">${edChips()}</div></div>
+  <div id="edRows">${edRows()}</div>
+  <div class="sumbar"><div><small>الإيراد</small><b id="sInc">0</b></div><div><small>المدفوعات</small><b id="sExp">0</b></div><div><small>الصافي</small><b id="sNet">0</b></div></div>
+  <div id="edWarn"></div>
+  <div class="fld"><label>ملاحظة (اختياري)</label><input class="inp" id="edNote" value="${esc(ED.note)}" placeholder="مثال: أجازة / عرض خاص / سداد متأخرات"></div></div>
+  <div class="mf"><button class="btn pri" data-act="edsave">${ic('save')} حفظ</button><button class="btn" data-act="edsavenext">حفظ + اليوم التالي</button>${ED.isNew?'':`<button class="btn dng" data-act="eddel" style="margin-inline-start:auto">${ic('trash')} حذف اليوم</button>`}<span class="muted" style="font-size:12px;margin-inline-start:${ED.isNew?'auto':'0'}">Ctrl+Enter للحفظ</span></div></div>`;
+}
+function edChips(){
+  const u=usageCount(),q=norm(ED.q),used=new Set(ED.rows.map(r=>r.c));
+  const cs=DB.cats.filter(c=>c.on&&(!q||norm(c.name).includes(q))).sort((a,b)=>(a.type===b.type?0:a.type==='sup'?-1:1)||((u[b.id]||0)-(u[a.id]||0)));
+  return cs.map(c=>`<button class="chip${used.has(c.id)?' on':''}" data-act="edchip" data-c="${c.id}"${c.type==='op'?' style="border-style:dashed"':''}>${esc(c.name)}</button>`).join('')||'<span class="muted">مفيش نتيجة — تقدر تضيف شركة جديدة من صفحة الموردين</span>';
+}
+function lastPay(c,before){for(let i=RECS.length-1;i>=0;i--){const r=RECS[i];if(r.k<before&&r.e[c])return {k:r.k,v:r.e[c]}}return null}
+function edRows(){
+  if(!ED.rows.length)return `<div class="muted" style="text-align:center;padding:8px;font-size:13px">لسه مفيش مدفوعات لليوم ده</div>`;
+  return ED.rows.map((r,i)=>{const lp=lastPay(r.c,ED.k),rh=payRhythm(r.c),v=parseNum(r.v);
+    let hint='';if(lp)hint=`آخر دفعة ${fmtN(lp.v)} قبل ${diffDays(lp.k,ED.k)} يوم`;
+    if(lp&&rh.n>=3&&v>rh.typ*3)hint+=` — <b class="neg">المبلغ أكبر من معتادها ×${(v/rh.typ).toFixed(1)}، تأكد</b>`;
+    return `<div class="erow"><b>${esc(CM[r.c]?.name||'؟')}</b><input class="inp edAmt" data-i="${i}" inputmode="decimal" value="${esc(r.v)}" placeholder="المبلغ" autocomplete="off"><button class="btn iconbtn ghost" data-act="edremove" data-i="${i}">${ic('x',16)}</button>${hint?`<div class="hint">${hint}</div>`:''}</div>`}).join('');
+}
+function edRefresh(){
+  if(!ED)return;const inc=parseNum(ED.inc),exp=sum(ED.rows.map(r=>parseNum(r.v))),net=inc-exp;
+  const s=(id,v,cls)=>{const e=$(id);if(e){e.innerHTML=N(v);e.className=cls||''}};
+  s('#sInc',inc);s('#sExp',exp);s('#sNet',net,net<0?'neg':net>0?'pos':'');
+  const w=[],ok=RECS.filter(r=>r.inc>0&&r.k!==ED.k),avg=mean(ok.map(r=>r.inc));
+  if(ED.k>todayKey())w.push('التاريخ ده في المستقبل.');
+  if(inc>0&&ok.length>=7){if(inc>avg*2.5)w.push(`الإيراد أعلى من معتادك بـ ${(inc/avg).toFixed(1)}× (المتوسط ${fmtN(avg)}) — تأكد من الرقم.`);else if(inc<avg*.3)w.push(`الإيراد أقل بكتير من معتادك (المتوسط ${fmtN(avg)}).`)}
+  if(net<0&&inc>0)w.push(`المدفوعات أكبر من الإيراد بـ ${fmtN(-net)} — عادي لو ده يوم سداد شركة كبيرة.`);
+  if(!inc&&!exp)w.push('هيتسجل كيوم بدون حركة (أجازة مثلًا).');
+  const el=$('#edWarn');if(el)el.innerHTML=w.map(t=>`<div class="note ${/تأكد|المستقبل/.test(t)?'warn':''}" style="margin-bottom:6px">${t}</div>`).join('');
+}
+function edCollect(){
+  const e={};ED.rows.forEach(r=>{const v=parseNum(r.v);if(v>0)e[r.c]=(e[r.c]||0)+v});
+  return {i:parseNum(ED.inc),e,n:ED.note.trim()||undefined};
+}
+function edSave(next){
+  const k=ED.k;if(!/^\d{4}-\d{2}-\d{2}$/.test(k))return toast('التاريخ غير صحيح');
+  const d=edCollect();if(!d.n)delete d.n;
+  commit(()=>{DB.days[k]=d},'تم حفظ '+dShort(k));
+  if(next)openEditor(addDays(k,1));else closeModal();
+}
+function edAddRow(c){
+  if(!ED.rows.find(r=>r.c===c))ED.rows.push({c,v:''});
+  $('#edRows').innerHTML=edRows();$('#edChips').innerHTML=edChips();
+  const i=ED.rows.findIndex(r=>r.c===c),inp=$(`.edAmt[data-i="${i}"]`);inp&&inp.focus();edRefresh();
+}
+function edLoadDate(k){
+  const ex=DB.days[k];ED.k=k;ED.isNew=!ex;
+  if(ex){ED.inc=ex.i?String(ex.i):'';ED.rows=Object.entries(ex.e).map(([c,v])=>({c,v:String(v)}));ED.note=ex.n||''}
+  else if(ED.rows.length===0&&!ED.inc){}
+  const open=$('.modal');open.outerHTML=edHtml();edRefresh();
+}
+
+/* ---------- لوحة الأوامر ---------- */
+function openPalette(){
+  if($('.pal'))return;
+  const items=[];
+  Object.entries(PAGES_META).forEach(([k,[t,i]])=>items.push({t:'الذهاب إلى: '+t,ic:i,go:()=>{S.page=k;render()},tag:'صفحة'}));
+  items.push({t:'تسجيل يوم جديد',ic:'plus',go:()=>openEditor(),tag:'أمر'},{t:'نسخة احتياطية الآن',ic:'save',go:backup,tag:'أمر'},{t:'تصدير إلى إكسل',ic:'dl',go:()=>exportXlsx('all'),tag:'أمر'},{t:'استيراد من إكسل',ic:'ul',go:openImport,tag:'أمر'},{t:'تبديل الوضع الليلي',ic:'moon',go:toggleTheme,tag:'أمر'},{t:'طباعة تقرير الشهر',ic:'print',go:()=>{S.page='reports';render();setTimeout(()=>print(),300)},tag:'أمر'});
+  DB.cats.forEach(c=>items.push({t:c.name,ic:'truck',go:()=>openCat(c.id),tag:c.type==='op'?'بند تشغيل':'شركة'}));
+  monthsList().forEach(([y,m])=>items.push({t:'شهر '+mLabel(y,m),ic:'cal',go:()=>{PER={mode:'month',y,m};if(!NEEDS_PERIOD.includes(S.page))S.page='dash';render()},tag:'فترة'}));
+  RECS.slice(-90).reverse().forEach(r=>items.push({t:dLong(r.k),ic:'edit',go:()=>openEditor(r.k),tag:'يوم'}));
+  const d=document.createElement('div');d.className='pal';d.innerHTML=`<div><input id="palQ" placeholder="ابحث عن صفحة أو شركة أو شهر أو يوم…" autocomplete="off"><ul id="palL"></ul></div>`;document.body.appendChild(d);
+  let sel=0,list=[];const draw=()=>{const q=norm($('#palQ').value);list=items.filter(x=>!q||norm(x.t).includes(q)).slice(0,40);sel=Math.min(sel,Math.max(0,list.length-1));
+    $('#palL').innerHTML=list.map((x,i)=>`<li class="${i===sel?'on':''}" data-i="${i}">${ic(x.ic,16)}<span>${esc(x.t)}</span><small>${x.tag}</small></li>`).join('')||'<li class="muted">لا نتائج</li>'};
+  const run=i=>{if(list[i]){d.remove();list[i].go()}};
+  d.addEventListener('mousedown',e=>{if(e.target===d)d.remove();const li=e.target.closest('li[data-i]');if(li)run(+li.dataset.i)});
+  $('#palQ').addEventListener('input',()=>{sel=0;draw()});
+  $('#palQ').addEventListener('keydown',e=>{if(e.key==='ArrowDown'){sel=Math.min(list.length-1,sel+1);draw();e.preventDefault()}else if(e.key==='ArrowUp'){sel=Math.max(0,sel-1);draw();e.preventDefault()}else if(e.key==='Enter')run(sel);else if(e.key==='Escape')d.remove()});
+  draw();$('#palQ').focus();
+}
+function toggleTheme(){DB.settings.theme=isDark()?'light':'dark';persist();render()}
+
+/* ---------- تعديل خانة في الجدول ---------- */
+let PENDING=null;
+function editCell(td){
+  if(td.querySelector('input'))return;
+  const k=td.dataset.k,c=td.dataset.c,r=RM[k];const cur_=c==='__inc'?(r?r.inc:0):(r?.e[c]||0);
+  td.innerHTML=`<input value="${cur_||''}" inputmode="decimal" autocomplete="off">`;const i=td.firstChild;i.focus();i.select();
+  let done=false;
+  const commitCell=(mv)=>{
+    if(done)return;done=true;const v=parseNum(i.value);
+    if(v!==cur_){commit(()=>{const d=DB.days[k]||(DB.days[k]={i:0,e:{}});if(c==='__inc')d.i=v;else{if(v>0)d.e[c]=v;else delete d.e[c]}})}
+    else render();
+    if(mv)PENDING=mv;post();
+  };
+  i.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();const nk=addDays(k,e.shiftKey?-1:1);commitCell({k:nk,c})}
+    else if(e.key==='Tab'){e.preventDefault();const sib=e.shiftKey?td.previousElementSibling:td.nextElementSibling;
+      if(sib&&sib.classList.contains('cell'))commitCell({k,c:sib.dataset.c});else commitCell(null)}
+    else if(e.key==='Escape'){done=true;render()}
+    else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();commitCell({k:addDays(k,e.key==='ArrowDown'?1:-1),c})}
+  });
+  i.addEventListener('blur',()=>setTimeout(()=>commitCell(null),0));
+}
+function post(){if(S.page==='settings')settingsAsync();if(PENDING){const p=PENDING;PENDING=null;const td=$(`td.cell[data-k="${p.k}"][data-c="${p.c}"]`);if(td){editCell(td);td.scrollIntoView({block:'nearest'})}}}
+{const _r=render;render=function(){_r();post()}}
+
+/* ---------- النسخ الاحتياطي ---------- */
+function backup(){
+  download(`vetcare-backup-${todayKey()}.json`,new Blob([JSON.stringify(DB)],{type:'application/json'}));
+  DB.settings.lastBackup=Date.now();persist();render();toast('تم حفظ النسخة الاحتياطية في مجلد التنزيلات ✔');
+}
+function restoreBackup(){
+  pickFile('.json,application/json',async f=>{try{
+    const d=JSON.parse(await f.text());if(!d.cats||!d.days)throw 0;
+    if(!confirm(`هيتم استبدال كل البيانات الحالية بنسخة فيها ${Object.keys(d.days).length} يوم. متأكد؟`))return;
+    snap('قبل استرجاع نسخة');commit(()=>{DB=sanitize(d)},'تم استرجاع النسخة ✔');initPeriod();render()}catch(e){toast('الملف مش نسخة احتياطية صحيحة')}});
+}
+
+/* ---------- كاتب / قارئ XLSX (بدون مكتبات) ---------- */
+const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc32=u=>{let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=CRC[(c^u[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0};
+function zipStore(files){
+  const enc=new TextEncoder(),parts=[],cen=[];let off=0;
+  files.forEach(f=>{const nb=enc.encode(f.name),crc=crc32(f.data),sz=f.data.length;
+    const lh=new DataView(new ArrayBuffer(30));lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(10,0,true);lh.setUint16(12,33,true);lh.setUint32(14,crc,true);lh.setUint32(18,sz,true);lh.setUint32(22,sz,true);lh.setUint16(26,nb.length,true);
+    parts.push(new Uint8Array(lh.buffer),nb,f.data);
+    const ch=new DataView(new ArrayBuffer(46));ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(14,33,true);ch.setUint32(16,crc,true);ch.setUint32(20,sz,true);ch.setUint32(24,sz,true);ch.setUint16(28,nb.length,true);ch.setUint32(42,off,true);
+    cen.push(new Uint8Array(ch.buffer),nb);off+=30+nb.length+sz});
+  const cs=sum(cen.map(x=>x.length)),end=new DataView(new ArrayBuffer(22));end.setUint32(0,0x06054b50,true);end.setUint16(8,files.length,true);end.setUint16(10,files.length,true);end.setUint32(12,cs,true);end.setUint32(16,off,true);
+  return new Blob([...parts,...cen,new Uint8Array(end.buffer)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+const colL=i=>{let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s};
+const xesc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
+function sheetXml(rows,widths){
+  const ser=k=>{const [y,m,d]=k.split('-').map(Number);return Math.round((Date.UTC(y,m-1,d)-Date.UTC(1899,11,30))/864e5)};
+  let x='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView rightToLeft="1" workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>';
+  if(widths)x+='<cols>'+widths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')+'</cols>';
+  x+='<sheetData>';
+  rows.forEach((row,ri)=>{x+=`<row r="${ri+1}">`;row.forEach((c,ci)=>{
+    if(c==null||c==='')return;const ref=colL(ci)+(ri+1);let v=c,s=0;
+    if(typeof c==='object'){v=c.v;s=c.s||0;if(c.d){v=ser(c.d);s=s||2}}
+    if(ri===0&&typeof v==='string')s=1;
+    if(typeof v==='number')x+=`<c r="${ref}" s="${s||3}"><v>${v}</v></c>`;
+    else x+=`<c r="${ref}" s="${s}" t="inlineStr"><is><t xml:space="preserve">${xesc(v)}</t></is></c>`});x+='</row>'});
+  return x+'</sheetData></worksheet>';
+}
+function buildXlsx(sheets){
+  const enc=new TextEncoder(),f=[];const add=(n,t)=>f.push({name:n,data:enc.encode(t)});
+  const H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  add('[Content_Types].xml',H+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')+'</Types>');
+  add('_rels/.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
+  add('xl/workbook.xml',H+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+sheets.map((s,i)=>`<sheet name="${xesc(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')+'</sheets></workbook>');
+  add('xl/_rels/workbook.xml.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')+`<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`);
+  add('xl/styles.xml',H+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="0.0%"/></numFmts><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFDCE9FB"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="7"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment horizontal="center"/></xf><xf numFmtId="14" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="3" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="3" fontId="1" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyFont="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs></styleSheet>');
+  sheets.forEach((s,i)=>add(`xl/worksheets/sheet${i+1}.xml`,sheetXml(s.rows,s.widths)));
+  return zipStore(f);
+}
+function exportXlsx(scope){
+  const pi=periodInfo(),rs=scope==='all'?RECS:pi.recs,a=agg(rs),T=(v)=>({v,s:5}),B=v=>({v,s:6});
+  const days=[['اليوم','الإيراد','المدفوعات','الصافي','الهامش','ملاحظة']];
+  rs.forEach(r=>days.push([{d:r.k},r.inc,r.exp,r.net,{v:r.inc?r.net/r.inc:0,s:4},r.note]));
+  days.push([B('الإجمالي'),T(a.inc),T(a.exp),T(a.net),{v:a.margin,s:4}]);
+  const cs=DB.cats.filter(c=>a.byCat[c.id]).sort((x,y)=>(x.type===y.type?0:x.type==='sup'?-1:1)||(a.byCat[y.id].t-a.byCat[x.id].t));
+  const mx=[['اليوم','الإيراد',...cs.map(c=>c.name),'إجمالي المدفوعات','الصافي']];
+  rs.forEach(r=>mx.push([{d:r.k},r.inc,...cs.map(c=>r.e[c.id]||''),r.exp,r.net]));
+  mx.push([B('الإجمالي'),T(a.inc),...cs.map(c=>T(a.byCat[c.id].t)),T(a.exp),T(a.net)]);
+  const sm=[['الشركة / البند','النوع','الإجمالي','عدد الدفعات','متوسط الدفعة','النسبة من المدفوعات','آخر دفعة']];
+  cs.forEach(c=>{const b=a.byCat[c.id];sm.push([c.name,c.type==='op'?'تشغيل':'شركة',b.t,b.n,Math.round(b.t/b.n),{v:a.exp?b.t/a.exp:0,s:4},{d:b.last}])});
+  const by={};rs.forEach(r=>{(by[ymOf(r.k)]=by[ymOf(r.k)]||[]).push(r)});
+  const ms=[['الشهر','الإيراد','المدفوعات','الصافي','الهامش','أيام مسجلة']];
+  Object.keys(by).sort().forEach(k=>{const g=agg(by[k]);ms.push([AR_M[+k.slice(5)-1]+' '+k.slice(0,4),g.inc,g.exp,g.net,{v:g.margin,s:4},g.n])});
+  const blob=buildXlsx([{name:'اليومية',rows:days,widths:[14,14,14,14,10,30]},{name:'جدول الشركات',rows:mx,widths:[14,14,...cs.map(()=>13),18,14]},{name:'ملخص الشركات',rows:sm,widths:[22,10,14,12,14,18,14]},{name:'ملخص الشهور',rows:ms,widths:[18,14,14,14,10,12]}]);
+  download(`${DB.settings.shop}-${scope==='all'?'كل-البيانات':pi.label.replace(/\s+/g,'-')}.xlsx`,blob);toast('تم تصدير ملف الإكسل ✔');
+}
+async function unzip(buf){
+  const u8=new Uint8Array(buf),dv=new DataView(buf);let e=u8.length-22;while(e>=0&&dv.getUint32(e,true)!==0x06054b50)e--;
+  if(e<0)throw new Error('ملف غير صالح');
+  const n=dv.getUint16(e+10,true);let p=dv.getUint32(e+16,true);const files={},dec=new TextDecoder();
+  for(let i=0;i<n;i++){const method=dv.getUint16(p+10,true),cs=dv.getUint32(p+20,true),nl=dv.getUint16(p+28,true),el=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),lo=dv.getUint32(p+42,true);
+    files[dec.decode(u8.subarray(p+46,p+46+nl))]={method,cs,lo};p+=46+nl+el+cl}
+  return async name=>{const f=files[name];if(!f)return null;const ds=f.lo+30+dv.getUint16(f.lo+26,true)+dv.getUint16(f.lo+28,true);const raw=u8.subarray(ds,ds+f.cs);
+    if(f.method===0)return dec.decode(raw);
+    const s=new Blob([raw]).stream().pipeThrough(new DecompressionStream('deflate-raw'));return dec.decode(await new Response(s).arrayBuffer())};
+}
+async function readXlsx(buf){
+  const rd=await unzip(buf),X=t=>new DOMParser().parseFromString(t,'application/xml');
+  const wb=X(await rd('xl/workbook.xml')),rel=X(await rd('xl/_rels/workbook.xml.rels'));
+  const ssx=await rd('xl/sharedStrings.xml'),sst=[];
+  if(ssx)[...X(ssx).getElementsByTagName('si')].forEach(si=>sst.push([...si.getElementsByTagName('t')].filter(t=>t.parentNode.nodeName!=='rPh').map(t=>t.textContent).join('')));
+  const R='http://schemas.openxmlformats.org/officeDocument/2006/relationships',out=[];
+  for(const sh of [...wb.getElementsByTagName('sheet')]){
+    const rid=sh.getAttributeNS(R,'id'),tg=[...rel.getElementsByTagName('Relationship')].find(r=>r.getAttribute('Id')===rid)?.getAttribute('Target');if(!tg)continue;
+    const path=tg.startsWith('/')?tg.slice(1):'xl/'+tg,xml=await rd(path);if(!xml)continue;
+    const rows=[];
+    [...X(xml).getElementsByTagName('c')].forEach(c=>{
+      const m=/^([A-Z]+)(\d+)$/.exec(c.getAttribute('r'));if(!m)return;
+      let ci=0;for(const ch of m[1])ci=ci*26+ch.charCodeAt(0)-64;ci--;const ri=+m[2]-1,t=c.getAttribute('t'),vEl=c.getElementsByTagName('v')[0];let v=null;
+      if(t==='inlineStr')v=[...c.getElementsByTagName('t')].map(x=>x.textContent).join('');
+      else if(vEl){const raw=vEl.textContent;v=t==='s'?sst[+raw]:t==='str'?raw:t==='b'?raw==='1':t==='e'?null:parseFloat(raw)}
+      if(v!=null){(rows[ri]||(rows[ri]=[]))[ci]=v}});
+    out.push({name:sh.getAttribute('name'),rows});
+  }
+  return out;
+}
+/* ---------- استيراد ملف الإكسل بنفس القالب ---------- */
+function parseTemplate(sheets){
+  const isSer=v=>typeof v==='number'&&v>36000&&v<80000,toKey=v=>{const d=new Date(Date.UTC(1899,11,30)+v*864e5);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate())};
+  const comp=sheets.find(s=>s.rows[0]&&String(s.rows[0][0]).toUpperCase().includes('DAY/COMPANY')||/compan/i.test(s.name));
+  const sales=sheets.find(s=>/sales/i.test(s.name))||sheets.find(s=>s!==comp);
+  if(!comp)throw new Error('مش لاقي شيت الشركات (companies) في الملف');
+  const newCats=[],mapName=(nm,occ)=>{
+    let n=norm(nm);if(n==='تاميانات')n=norm('تأمينات');
+    if(n===norm('اخري')){const want=occ===0?'أخرى (موردين)':'أخرى (تشغيل)';const c=DB.cats.find(c=>c.name===want);if(c)return c.id}
+    const c=DB.cats.find(c=>norm(c.name)===n)||newCats.find(c=>norm(c.name)===n);if(c)return c.id;
+    const nc={id:'c'+Date.now().toString(36)+newCats.length,name:nm.trim(),type:'sup',on:1};newCats.push(nc);return nc.id};
+  const days={},get=k=>days[k]||(days[k]={i:0,e:{}});
+  let cols=null,occ={};
+  comp.rows.forEach(r=>{if(!r)return;
+    if(typeof r[0]==='string'&&r[0].toUpperCase().includes('DAY/COMPANY')){cols={};occ={};for(let c=1;c<r.length;c++){const nm=r[c];if(typeof nm==='string'&&nm.trim()&&!/total/i.test(nm)){const nn=norm(nm);const o=occ[nn]=(occ[nn]??-1)+1;cols[c]=mapName(nm,o)}}return}
+    if(cols&&isSer(r[0])){const d=get(toKey(r[0]));for(const c in cols){const v=r[c];if(typeof v==='number'&&v>0)d.e[cols[c]]=(d.e[cols[c]]||0)+v}}});
+  if(sales)sales.rows.forEach(r=>{if(r&&isSer(r[0])&&typeof r[1]==='number'&&r[1]>0){get(toKey(r[0])).i=r[1]}});
+  const by={};Object.keys(days).sort().forEach(k=>(by[ymOf(k)]=by[ymOf(k)]||[]).push(k));
+  const months=[];
+  Object.keys(by).forEach(ym=>{
+    const ks=by[ym],inc=sum(ks.map(k=>days[k].i)),exp=sum(ks.map(k=>sum(Object.values(days[k].e))));
+    if(inc+exp===0)return; // شهر فاضي (قالب)
+    const warn=[],nz=ks.filter(k=>days[k].i>0);
+    if(nz.length&&nz.length<=2&&nz.some(k=>days[k].i>inc*.6)&&ks.filter(k=>sum(Object.values(days[k].e))>0).length>5)warn.push('الإيراد مسجّل كرقم إجمالي في يوم واحد، فمش هينفع للتحليل اليومي');
+    if(!inc&&exp)warn.push('مفيش إيرادات يومية');
+    const recs={};ks.forEach(k=>recs[k]=days[k]);
+    months.push({ym,label:mLabel(+ym.slice(0,4),+ym.slice(5)),n:ks.length,inc,exp,warn,recs,exists:ks.filter(k=>DB.days[k]).length});
+  });
+  return {months,newCats};
+}
+let IMP=null;
+function openImport(){
+  openModal(`<div class="modal wide"><div class="mh"><h2>استيراد من إكسل</h2><button class="btn iconbtn ghost" data-act="close">${ic('x')}</button></div><div class="mb" id="impBody"><div class="drop" id="drop" data-act="impfile">${ic('ul',30)}<div style="margin-top:8px"><b>اسحب ملف الإكسل هنا أو اضغط للاختيار</b></div><div class="muted" style="font-size:12.5px;margin-top:4px">بنفس شكل ملف sales2026 (شيت Sales وشيت companies) — الملف بيتقرا على جهازك ومش بيتبعت لأي مكان.</div></div></div></div>`);
+  const d=$('#drop');['dragover','dragenter'].forEach(ev=>d.addEventListener(ev,e=>{e.preventDefault();d.classList.add('ov')}));d.addEventListener('dragleave',()=>d.classList.remove('ov'));
+  d.addEventListener('drop',e=>{e.preventDefault();d.classList.remove('ov');e.dataTransfer.files[0]&&handleImportFile(e.dataTransfer.files[0])});
+}
+async function handleImportFile(f){
+  try{IMP=parseTemplate(await readXlsx(await f.arrayBuffer()));IMP.mode='skip';IMP.sel=IMP.months.map(m=>!m.warn.length)}catch(e){console.error(e);return toast('مقدرتش أقرا الملف: '+(e.message||'شكله مش بنفس القالب'))}
+  drawImport();
+}
+function drawImport(){
+  const b=$('#impBody');if(!b)return;
+  if(!IMP.months.length){b.innerHTML='<div class="empty"><b>مفيش بيانات في الملف</b>الشيتات كلها فاضية أو مش بنفس القالب.</div>';return}
+  b.innerHTML=`<div class="note">لقيت ${IMP.months.length} شهر فيهم بيانات${IMP.newCats.length?` · هتتضاف ${IMP.newCats.length} شركة جديدة: ${IMP.newCats.map(c=>esc(c.name)).join('، ')}`:''}. الشهور الفاضية (قالب بدون أرقام) اتجاهلت أوتوماتيك.</div>
+  <div class="tw" style="max-height:none"><table class="t"><thead><tr><th style="width:1%"></th><th>الشهر</th><th>أيام</th><th>الإيراد</th><th>المدفوعات</th><th>موجود بالفعل</th></tr></thead><tbody>${IMP.months.map((m,i)=>`<tr><td><input type="checkbox" data-act="impsel" data-i="${i}" ${IMP.sel[i]?'checked':''}></td><td>${m.label}${m.warn.map(w=>`<div class="pill warn" style="margin-top:3px;white-space:normal">${ic('warn',13)} ${w}</div>`).join('')}</td><td>${m.n}</td><td>${N(m.inc)}</td><td>${N(m.exp)}</td><td>${m.exists?m.exists+' يوم':'—'}</td></tr>`).join('')}</tbody></table></div>
+  <div class="fld"><label>لو اليوم موجود بالفعل في البرنامج</label><select class="sel" data-act="impmode"><option value="skip"${IMP.mode==='skip'?' selected':''}>سيبه زي ما هو (تجاهل اللي في الملف)</option><option value="replace"${IMP.mode==='replace'?' selected':''}>استبدله ببيانات الملف</option></select></div>
+  <div><button class="btn pri" data-act="impgo">${ic('check')} استيراد الشهور المحددة</button></div>`;
+}
+function doImport(){
+  const chosen=IMP.months.filter((_,i)=>IMP.sel[i]);if(!chosen.length)return toast('اختار شهر واحد على الأقل');
+  let added=0;snap('قبل الاستيراد من إكسل');
+  commit(()=>{
+    IMP.newCats.forEach(c=>{if(chosen.some(m=>Object.values(m.recs).some(d=>d.e[c.id])))DB.cats.push(c)});
+    chosen.forEach(m=>Object.entries(m.recs).forEach(([k,d])=>{if(DB.days[k]&&IMP.mode==='skip')return;DB.days[k]={i:d.i,e:d.e};added++}));
+  });
+  closeModal();initPeriod();render();toast(`تم استيراد ${added} يوم ✔`,true);
+}
+
+async function settingsAsync(){
+  try{const el=$('#snapList');if(el){const all=(await IDB.all('snaps')).sort((a,b)=>b.ts-a.ts);
+    el.innerHTML=all.length?`<div class="tw" style="max-height:230px"><table class="t"><thead><tr><th>التاريخ</th><th>السبب</th><th>أيام</th><th></th></tr></thead><tbody>${all.map(r=>`<tr><td>${new Date(r.ts).toLocaleString('ar-EG-u-nu-latn',{dateStyle:'medium',timeStyle:'short'})}</td><td style="text-align:start">${esc(r.why)}</td><td>${r.days}</td><td><button class="btn sm" data-act="snaprestore" data-id="${esc(r.id)}">استرجاع</button> <button class="btn sm ghost" data-act="snapdl" data-id="${esc(r.id)}">${ic('dl',14)}</button></td></tr>`).join('')}</tbody></table></div>`:'لسه مفيش نسخ تلقائية — أول نسخة بتتاخد مع أول فتح بعد تسجيل بيانات.'}}catch(e){const el=$('#snapList');if(el)el.textContent='النسخ التلقائية غير متاحة في المتصفح ده.'}
+  try{const p=navigator.storage&&navigator.storage.persisted?await navigator.storage.persisted():null,i=$('#persistInfo');if(i)i.textContent=p===true?'التخزين محمي من المسح التلقائي ✔':p===false?'المتصفح ممكن يمسح التخزين لو المساحة قلت — فعّل الحفظ في ملف':''}catch(e){}
+}
+function openHealth(){
+  const items=healthCheck();
+  openModal(`<div class="modal wide"><div class="mh"><h2>فحص سلامة البيانات</h2><button class="btn iconbtn ghost" data-act="close">${ic('x')}</button></div><div class="mb">${items.map(i=>`<div class="insi ${i.t==='warn'?'warn':i.t==='good'?'good':'info'}"><div class="b">${ic(i.t==='good'?'check':i.t==='warn'?'warn':'info',16)}</div><div style="flex:1"><b style="font-weight:600">${i.txt}</b>${i.keys.length?`<div class="chips" style="margin-top:8px">${i.keys.slice(0,12).map(k=>`<button class="chip" data-act="edit" data-k="${k}">${dShort(k)}</button>`).join('')}${i.keys.length>12?`<span class="muted">+${i.keys.length-12}</span>`:''}</div>`:''}</div></div>`).join('')}<div class="muted" style="font-size:12.5px">${RECS.length} يوم مسجل · ${DB.cats.length} شركة/بند</div></div></div>`);
+}
+/* ---------- الشركات/البنود ---------- */
+function addCatModal(){
+  openModal(`<div class="modal"><div class="mh"><h2>شركة / بند جديد</h2><button class="btn iconbtn ghost" data-act="close">${ic('x')}</button></div><div class="mb"><div class="fld"><label>الاسم</label><input class="inp" id="ncName" autofocus></div><div class="fld"><label>النوع</label><div class="seg"><button class="on" data-act="nctype" data-t="sup">شركة / مورد</button><button data-act="nctype" data-t="op">مصروف تشغيل</button></div></div></div><div class="mf"><button class="btn pri" data-act="ncsave">${ic('save')} إضافة</button></div></div>`);
+  setTimeout(()=>$('#ncName')?.focus(),50);
+}
+
+/* ====================== الأحداث ====================== */
+const CLICK={
+  nav:d=>{S.page=d.p;render();scrollTo(0,0)},
+  pp:d=>{shiftPeriod(+d.d);render()},
+  new:()=>openEditor(),
+  edit:d=>openEditor(d.k),
+  mode:d=>{S.mode=d.m;render()},
+  gomonth:d=>{PER={mode:'month',y:+d.y,m:+d.m};render()},
+  cat:d=>openCat(d.c),
+  ledf:d=>{S.ledF=d.f;render()},
+  supt:d=>{S.supT=d.t;render()},
+  simreset:e=>{S.sim={i:0,s:0,o:0};render()},
+  settarget:()=>{const v=parseNum($('#tgtIn').value);if(!v)return toast('اكتب رقم الهدف');DB.settings.target=v;persist();render();toast('تم حفظ الهدف ✔')},
+  settarget2:()=>{const v=prompt('هدف الإيراد الشهري:',DB.settings.target);if(v!==null){DB.settings.target=parseNum(v);persist();render()}},
+  backup,restore:restoreBackup,import:openImport,
+  xlsx:d=>exportXlsx(d.s),print:()=>print(),
+  reseed:()=>{if(confirm('هيتم استبدال كل بياناتك ببيانات ملف sales2026 الأصلي (يناير 2026). متأكد؟')){snap('قبل استرجاع بيانات الإكسل');commit(()=>{const s=DB.settings;DB=sanitize(JSON.parse(JSON.stringify(SEED)));DB.settings=s},'تم استرجاع بيانات الإكسل');initPeriod();render()}},
+  wipe:()=>{if(confirm('هيتم مسح كل الأيام المسجلة (الشركات هتفضل). البرنامج هياخد نسخة تلقائية قبل المسح تقدر ترجعلها من الإعدادات. متأكد؟')){snap('قبل مسح كل البيانات');commit(()=>{DB.days={}},'تم المسح — تقدر تتراجع');initPeriod();render()}},
+  theme:toggleTheme,
+  settheme:d=>{DB.settings.theme=d.t;persist();render()},
+  savesettings:()=>{const s=DB.settings;s.shop=$('#setShop').value.trim()||'VetCare';s.cur=$('#setCur').value.trim()||'ج.م';s.target=parseNum($('#setTgt').value);s.overdue=+$('#setOver').value;persist();render();toast('تم حفظ الإعدادات ✔')},
+  addcat:addCatModal,
+  nctype:d=>{$$('.modal .seg button').forEach(b=>b.classList.toggle('on',b===d._el))},
+  ncsave:()=>{const n=$('#ncName').value.trim();if(!n)return toast('اكتب الاسم');if(DB.cats.some(c=>norm(c.name)===norm(n)))return toast('الاسم ده موجود بالفعل');
+    const t=$('.modal .seg button.on').dataset.t;commit(()=>DB.cats.push({id:'c'+Date.now().toString(36),name:n,type:t,on:1}),'تمت الإضافة ✔');closeModal()},
+  savecat:d=>{const c=CM[d.c],n=$('#catName').value.trim();if(!n)return toast('الاسم مطلوب');if(DB.cats.some(x=>x.id!==c.id&&norm(x.name)===norm(n)))return toast('الاسم ده موجود بالفعل');
+    commit(()=>{const x=DB.cats.find(y=>y.id===d.c);x.name=n;x.type=$('#catType').value;x.on=$('#catOn').checked?1:0},'تم حفظ التعديلات ✔');closeModal()},
+  delcat:d=>{const used=RECS.some(r=>r.e[d.c]);
+    if(used){if(confirm('الشركة دي عليها دفعات مسجلة، فمش هتتحذف — هتتأرشف (بتختفي من التسجيل وبياناتها تفضل). تأرشف؟'))commit(()=>{DB.cats.find(y=>y.id===d.c).on=0},'تمت الأرشفة');closeModal()}
+    else if(confirm('حذف نهائي؟'))commit(()=>{DB.cats=DB.cats.filter(y=>y.id!==d.c)},'تم الحذف');closeModal()},
+  palette:openPalette,close:()=>closeModal(),undo,
+  edchip:d=>edAddRow(d.c),
+  edremove:d=>{ED.rows.splice(+d.i,1);$('#edRows').innerHTML=edRows();$('#edChips').innerHTML=edChips();edRefresh()},
+  edsave:()=>edSave(false),edsavenext:()=>edSave(true),
+  eddel:()=>{if(confirm('حذف تسجيل '+dShort(ED.k)+'؟')){const k=ED.k;commit(()=>{delete DB.days[k]},'تم حذف اليوم');closeModal()}},
+  edday:d=>edLoadDate(addDays(ED.k,+d.d)),
+  iosdismiss:()=>{try{localStorage.setItem('vetcare_ios_hint','1')}catch(e){}render()},
+  fslink:fsLink,fsperm:fsPerm,fsunlink:fsUnlink,
+  dismissErr:()=>{LOAD_ERR=null;render()},
+  health:openHealth,
+  snaprestore:async d=>{const r=await IDB.get('snaps',d.id);if(!r)return toast('النسخة مش موجودة');
+    if(!confirm(`هيتم استبدال بياناتك الحالية بنسخة ${new Date(r.ts).toLocaleString('ar-EG-u-nu-latn')} (${r.days} يوم). الحالية هتتحفظ كنسخة قبل الاسترجاع. متأكد؟`))return;
+    await snap('قبل الاسترجاع من نسخة تلقائية');commit(()=>{DB=sanitize(JSON.parse(r.data))},'تم الاسترجاع ✔');initPeriod();render()},
+  snapdl:async d=>{const r=await IDB.get('snaps',d.id);if(r)download(`vetcare-snapshot-${key(new Date(r.ts))}.json`,new Blob([r.data],{type:'application/json'}))},
+  mergecat:d=>{const t=$('#mergeTo').value;if(!t)return toast('اختار الشركة الأساسية الأول');const a=CM[d.c],b=CM[t];
+    if(!confirm(`هيتم نقل كل دفعات «${a.name}» إلى «${b.name}» وحذف «${a.name}». متأكد؟`))return;
+    commit(()=>{Object.values(DB.days).forEach(x=>{if(x.e[d.c]){x.e[t]=(x.e[t]||0)+x.e[d.c];delete x.e[d.c]}});DB.cats=DB.cats.filter(x=>x.id!==d.c)},`تم دمج ${a.name} في ${b.name} ✔`);closeModal()},
+  impfile:()=>pickFile('.xlsx',handleImportFile),impgo:doImport,
+};
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act]');
+  if(t){const a=t.dataset.act;if(t.tagName==='SELECT'||t.tagName==='INPUT')return;
+    if(a==='backup'||a==='settarget2'||a==='simreset')e.preventDefault();
+    if(CLICK[a]){CLICK[a]({...t.dataset,_el:t},e);return}}
+  const td=e.target.closest('td.cell');if(td&&S.page==='matrix')editCell(td);
+});
+document.addEventListener('change',e=>{
+  const t=e.target,a=t.dataset.act;
+  if(a==='psel'){const v=t.value;if(v==='all')PER={mode:'all'};else if(v[0]==='y')PER={mode:'year',y:+v.slice(2)};else{const [y,m]=v.slice(2).split('-').map(Number);PER={mode:'month',y,m}}render()}
+  else if(a==='supsort'){S.supSort=t.value;render()}
+  else if(a==='mxall'){S.mxAll=t.checked;render()}
+  else if(a==='impsel'){IMP.sel[+t.dataset.i]=t.checked}
+  else if(a==='impmode'){IMP.mode=t.value}
+  else if(t.id==='edDate'&&ED&&t.value){edLoadDate(t.value)}
+});
+document.addEventListener('input',e=>{
+  const t=e.target,a=t.dataset.act;
+  if(t.id==='ledQ'){S.ledQ=t.value;$('#ledBody').innerHTML=ledgerRows(periodInfo())}
+  else if(t.id==='supQ'){S.supQ=t.value;$('#main').innerHTML=suppliers(periodInfo());const q=$('#supQ');q.focus();q.setSelectionRange(q.value.length,q.value.length)}
+  else if(a==='sim'){S.sim[t.dataset.k]=+t.value;const pi=periodInfo();$('#simOut').innerHTML=simOut(pi);$(`[data-lbl="${t.dataset.k}"]`).textContent=(S.sim[t.dataset.k]>0?'+':'')+S.sim[t.dataset.k]+'%'}
+  else if(ED){
+    if(t.id==='edInc'){ED.inc=t.value;edRefresh()}
+    else if(t.classList.contains('edAmt')){ED.rows[+t.dataset.i].v=t.value;edRefresh()}
+    else if(t.id==='edNote')ED.note=t.value;
+    else if(t.id==='edQ'){ED.q=t.value;$('#edChips').innerHTML=edChips()}
+  }
+});
+document.addEventListener('keydown',e=>{
+  const tag=(e.target.tagName||'').toLowerCase(),typing=tag==='input'||tag==='textarea'||tag==='select';
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openPalette();return}
+  if(e.key==='Escape'){if($('.pal'))return;if($('#mbg'))closeModal();return}
+  if(ED){
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();edSave(e.shiftKey);return}
+    if(e.key==='Enter'&&!e.isComposing){
+      if(e.target.id==='edInc'){e.preventDefault();$('#edQ').focus()}
+      else if(e.target.classList.contains('edAmt')){e.preventDefault();$('#edQ').focus();$('#edQ').select()}
+      else if(e.target.id==='edQ'){e.preventDefault();const q=norm(ED.q);const c=DB.cats.filter(c=>c.on&&(!q||norm(c.name).includes(q))).sort((a,b)=>{const u=usageCount();return (u[b.id]||0)-(u[a.id]||0)});
+        const pick=c.find(x=>!ED.rows.find(r=>r.c===x.id))||c[0];if(pick){ED.q='';e.target.value='';edAddRow(pick.id)}else if(!q)edSave(false)}
+    }
+    return;
+  }
+  if(typing)return;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();undo();return}
+  if(e.key==='n'||e.key==='N'||e.key==='ن'){if(!$('#mbg')){e.preventDefault();openEditor()}}
+});
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(drawCharts,120)});
+document.addEventListener('dragover',e=>e.preventDefault());
+/* ====================== تشغيل ====================== */
+loadDB();buildIndex();initPeriod();loadUI();initTip();render();initStorage();
+addEventListener('pagehide',()=>{fsWrite()});
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+</script></body></html>
